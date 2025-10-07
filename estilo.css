@@ -4,6 +4,20 @@ body {
     font-family: Arial, sans-serif;
 }
 
+main {
+   background-color: rgb(235, 153, 153);
+   padding: 20px;
+   border-radius: 5px;
+   min-width: 320px;
+   max-width: 1500px;
+   margin: auto;
+
+}
+img {
+    width: 100%;
+    height: auto;
+}
+
 h1 {
     background-color: rgb(212, 209, 209);
     height: 60px;
@@ -19,8 +33,14 @@ h1 {
     justify-content: center;
     align-items: flex-start;
     margin: 10px;
+    flex-wrap: wrap; /*  Permite quebrar linha quando a tela fica menor */
 }
 
+#dados_projeto, 
+#relatorio_final {
+    flex: 1 1 400px;  /*  Ajusta automaticamente o tamanho */
+    box-sizing: border-box; /*  Evita que padding e bordas somem à largura */
+}
 
 
 #dados_projeto {
@@ -29,7 +49,9 @@ h1 {
     border: 3px;
     border-style: solid;
     border-color: rgb(0, 0, 0);
-    border-radius: 10px;
+    border-radius: 8px;
+    
+    
     
 
 
@@ -42,7 +64,9 @@ h1 {
     border-style: solid;
     border-color: rgb(19, 0, 0);
     border-radius: 8px;
+    
    }
+
    .relatorio_conteudo {
     display: flex;
     justify-content: space-between;
