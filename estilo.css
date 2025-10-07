@@ -1,0 +1,166 @@
+@charset "UTF-8";
+
+body {
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    background-color: rgb(212, 209, 209);
+    height: 60px;
+    padding: 10px;
+    margin: auto;
+    text-align: center;
+   
+}
+
+.container {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 10px;
+}
+
+
+
+#dados_projeto {
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: rgb(0, 0, 0);
+    border-radius: 10px;
+    
+
+
+}
+#relatorio_final {
+   
+    background-color:rgb(245, 245, 245);
+    padding: 10px;
+    border: 3px;
+    border-style: solid;
+    border-color: rgb(19, 0, 0);
+    border-radius: 8px;
+   }
+   .relatorio_conteudo {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: nowrap;
+}
+
+/* 🔹 Cada bloco interno */
+.relatorio_conteudo > div {
+    flex: 1;
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border-radius: 8px;
+  
+}
+
+#dados_projeto h2, #relatorio_final h2 {
+  text-align: center;
+}
+
+#forca_plana {
+  width: 80px;  /* largura menor que a padrão */
+}
+#diametro_externo {
+    width: 80px;
+}
+#Rd {
+    width: 80px;
+}
+
+#desvio {
+    width: 40px;
+}
+#diametro_externo_out {
+    width: 80px;
+}
+#diametro_interno {
+    width: 80px;
+}
+#altura_cone {
+    width: 80px;
+}
+#espessura {
+    width: 80px;
+}
+#tensao_compressao {
+    width: 80px;
+}
+#tensao_tracao_ti {
+    width: 80px;
+}
+#tensao_tracao_to {
+    width: 80px;
+}
+#coeficiente_seguranca {
+    width: 80px;
+}
+
+#p_plana {
+    width: 150px;
+    border: 2px solid black ;
+}
+#a_plana {
+    width: 150px;
+    border: 2px solid black ;
+}
+.container-imagens {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+}
+
+.container-imagens img {
+  width: 45%;
+}
+#dimensoes {
+    border: 2px solid black ;
+    width: 200px;
+}
+#tensoes {
+    border: 2px solid black;
+    width: 185px;
+}
+
+.botao_calcular {
+    display: flex;
+  justify-content: center; 
+  
+    
+}
+.botao_calcular button {
+    width: 200px;       /* largura */
+    height: 50px;       /* altura */
+    font-size: 18px;    /* tamanho da fonte */
+    padding: 10px 20px; /* espaçamento interno */
+    border-radius: 5px; /* cantos arredondados */
+    cursor: pointer;    /* muda o cursor ao passar por cima */
+}
+/* Estilo padrão da div status */
+#status {
+    width: 200px;
+    padding: 10px;
+    text-align: center;
+    font-weight: bold;
+    margin: 0 auto;
+}
+
+/* Projeto aprovado */
+.aprovado {
+    background-color: green;
+    color: white;
+    border: 2px solid darkgreen;
+}
+
+/* Projeto reprovado */
+.reprovado {
+    background-color: red;
+    color: white;
+    border: 2px solid darkred;
+}

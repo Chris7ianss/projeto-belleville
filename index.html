@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <h1>DIMENSIONAMENTO DE MOLA BELLEVILLE</h1>
+    <link rel="stylesheet" href="estilo.css">
+</head>
+<body>
+  
+    <main>
+
+
+
+
+
+        <div class="container">
+
+            
+<!-- BLOCO DO PROJETO --> 
+            <div class= "box" id="dados_projeto">
+            <h2>DADOS INICIAIS DE PROJETO</h2>
+            <form>
+                
+
+                <p>
+                    <label for="diametro_externo">Diâmetro Externo (Do): </label>
+                    <input
+                        type="number"
+                        name="diâmetro"
+                        id="diametro_externo"placeholder="Ex: 2.5"
+                        min="0.0001"
+                        step="any"
+                        required
+                        inputmode="decimal"
+                        aria-describedby="rdHelp">
+                </p>
+            
+            
+            
+                <p>
+                    <label for="Rd">Razão entre Diâmetros (Rd): </label>
+                     <input
+                        type="number"
+                        name="Rd"
+                        id="Rd"
+                        placeholder="Ex: 2.0"
+                        min="0.0001"
+                        step="any"
+                        required
+                        inputmode="decimal"
+                        aria-describedby="rdHelp">
+            
+                </p>
+                
+
+                <p>
+                     <label for="operacao_mola">Função de Operação da mola:</label>
+                     <select name="operacao_mola" id="operacao_mola">
+                        <option value="operacao_bimodal">Operação Bimodal</option>
+                        <option value="forca_constante">Força Constante</option>
+                        <option value="constante_mola_constante">Constante de mola constante</option>
+                     </select>
+                 </p> 
+
+
+                <p>
+                    <label for="forca_plana">Força plana:</label>
+                    <input
+                        type="number"
+                        name="forca_plana"
+                        id="forca_plana"
+                        placeholder="Ex: 70 N"
+                        min="0.01"
+                        step="any"
+                        required
+                        inputmode="decimal"
+                        aria-describedby="rdHelp">
+
+                    <label for="desvio" id="desvio_label">&plusmn;:</label>
+                    <input
+                    type="number"
+                    name="desvio"
+                    id="desvio"
+                    placeholder="Ex: 10"
+                    min="0"
+                    max="10"
+                    step="1"
+                    
+                   >
+                </p>
+            
+                 <p>
+                     <label for="material">Escolha o Material:</label>
+                     <select name="material" id="material">
+                        <option value="aco_carbono">Aço Carbono</option>
+                        <option value="aco_inox_301">Aço Inox 301</option>
+                        <option value="aco_inox_302">Aço Inox 302</option>
+                        <option value="17_7ph_rh950">17-7PH RH950</option>
+                         <option value="17_7ph_cond_c">17-7PH Cond. C</option>
+                     </select>
+                     <label for="ajuste">Ajuste:</label>
+                                 <select name="ajuste" id="ajuste">
+                        <option value="sim">Sim</option>
+                        <option value="nao">Não</option>
+                     </select>
+                 </p>
+                    <!-- Botões de escolha -->
+
+                    <label for="montagem">Tipo de Montagem:</label>
+                    <select name="montagem" id="montagem">
+                        <option value="posicao_plana">Deformação até posição plana</option>
+                        <option value="alem_posicao_plana"> Deformação além da posição plana</option>
+                    </select>
+                
+
+             <div class="container-imagens">
+            
+    
+                    <p><img id="p_plana" src="posição plana.png" alt="BELLEVILLE em posição plana">
+                    <img id="a_plana" src="Alem da posição plana.png" alt="BELLEVILLE alem da posição plana"></p>
+            </div>
+
+
+                <!-- Botão de continuar -->
+
+                <div class="botao_calcular">
+                    <P><button type="button" onclick="Calcular()">Calcular</button></P>
+                </div>
+            </form>
+            </div>
+            
+            
+            
+            <!-- BLOCO DO RELATÓRIO -->
+            <div class="box" id="relatorio_final">
+                <h2>RELATÓRIO DO PROJETO</h2>
+                <form>
+                    <div class="relatorio_conteudo">
+                        
+                        <!-- BLOCO DE DIMENSOES -->
+                        <div class="dimensoes">
+                            <h3>DIMENSÕES</h3>
+                             <p>
+                                 <label for="diametro_externo_out">Diâmetro Externo (Do):</label>
+                                 <input
+                                    type="text"
+                                    name="diametro_externo_out"
+                                    id="diametro_externo_out"
+                                    readonly>
+                             </p>
+                            <p>
+                                <label for="diametro_interno">Diâmetro Interno (Di):</label>
+                                <input
+                                    type="text"
+                                     name="diametro_interno"
+                                     id="diametro_interno"
+                                     readonly>
+                            </p>
+                            <p>
+                                <label for="altura_cone">Altura do cone (h):</label>
+                                    <input
+                                    type="text"
+                                    name="altura_cone"
+                                    id="altura_cone"
+                                    readonly>
+                            </p>
+                            <p>
+                                <label for="espessura">Espessura (t) </label>
+                                    <input
+                                     type="text"
+                                     name="espessura"
+                                     id="espessura"
+                                     readonly>
+                            </p>
+                            <div class="dimensoes">
+                                <img id="dimensoes" src="dimensoes.png" alt="dimensoes da mola">
+                            </div>
+                        </div>
+                        
+
+                        <!-- BLOCO DE TENSÕES-->
+                        <div class="tensoes">
+                            <h3>TENSÕES CRÍTICAS</h3>
+                            <p>
+                                <label for="tensao_compressao">Tensão &sigma;<sub>c</sub>: </label>
+                                    <input
+                                    type="text"
+                                    name="tensao_compressao"
+                                    id="tensao_compressao">
+                            </p>
+                            <p>
+                                <Label for="tensao_tracao_ti">Tensão &sigma;<sub>ti</sub>: </Label>
+                                    <input
+                                    type="text"
+                                    name="tensao_tracao_ti" id="tensao_tracao_ti">
+                            </p>
+                            <p>
+                                <label for="tensao_tracao_to">Tensão &sigma;<sub>to</sub>: </label>
+                                    <input
+                                    type="text"
+                                    name="tensao_tracao_to"
+                                    id="tensao_tracao_to">
+                            </p>
+                                <div class="tensoes">
+                                    <img  id="tensoes" src="tensoes.png" alt="tensoes">
+                                </div>
+                        </div>
+                        <!-- BLOCO DE VIABILIDADE DO PROJETO-->
+                        <div class="viabilidade">
+                            <h3> VIABILIDADE DO PROJETO</h3>
+                            <P>
+                                <label for="coeficiente_seguranca">Coeficiente de Seguraça</label>
+                                    <input
+                                    type="text"
+                                    name="coeficiente_seguranca"
+                                    id="coeficiente_seguranca">
+                            </P>
+                            <p><div id="status">Projeto Aprovado</div></p>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </main>
+    <footer> <p> </p></footer>
+    <script src="script.js"></script>
+</body>
+</html>
