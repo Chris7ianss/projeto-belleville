@@ -38,7 +38,7 @@ h1 {
 
 #dados_projeto, 
 #relatorio_final {
-    flex: 1 1 400px;  /*  Ajusta automaticamente o tamanho */
+    flex: 1 1 300px;  /*  Ajusta automaticamente o tamanho */
     box-sizing: border-box; /*  Evita que padding e bordas somem à largura */
 }
 
@@ -64,6 +64,7 @@ h1 {
     border-style: solid;
     border-color: rgb(19, 0, 0);
     border-radius: 8px;
+    
     
    }
 
@@ -187,4 +188,38 @@ h1 {
     background-color: red;
     color: white;
     border: 2px solid darkred;
+}
+.relatorio_conteudo {
+    display: flex;
+    flex-wrap: wrap;          /* permite quebrar linha */
+    gap: 20px;
+    justify-content: center;  /* centraliza horizontalmente */
+    align-items: flex-start;  /* mantém o topo alinhado */
+}
+
+/* Cada bloco interno */
+.relatorio_conteudo > div {
+    flex: 1 1 250px;          /* base mínima 250px, cresce proporcionalmente */
+    min-width: 250px;         /* evita que fiquem muito estreitos */
+    max-width: 400px;         /* limita o tamanho máximo */
+    background-color: rgb(245, 245, 245);
+    padding: 10px;
+    border-radius: 8px;
+    box-sizing: border-box;   /* padding não aumenta a largura */
+}
+
+/* Media query para telas médias */
+@media (max-width: 1000px) {
+    .relatorio_conteudo > div:nth-child(3) { /* viabilidade */
+        flex-basis: 100%;      /* ocupa toda a largura e vai para a linha de baixo */
+        max-width: none;       /* remove limite de largura */
+    }
+}
+
+/* Media query para telas pequenas (celular) */
+@media (max-width: 600px) {
+    .relatorio_conteudo > div {
+        flex-basis: 100%;      /* cada bloco ocupa 100% da largura */
+        max-width: none;       /* remove limite de largura */
+    }
 }
