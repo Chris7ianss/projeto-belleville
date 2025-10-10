@@ -482,7 +482,9 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
         E, 
         material_escolhido,
         coeficiente_seguranca,
-         h
+         h,
+         ymaximo,
+         yminimo
     }  = entradas;
 
 
@@ -500,6 +502,8 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
         tensao_tracao_ti: sigma_ti,
         tensao_tracao_to: sigma_to,
         coeficiente_seguranca: coeficiente_seguranca,
+        deflexao_max: ymaximo,
+        deflexao_min: yminimo,
     };
 
     // Atualiza os campos do HTML automaticamente

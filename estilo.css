@@ -140,7 +140,16 @@ h1 {
     width: 150px;
     margin-right: 10px;
     
-}
+ } 
+ 
+  #deflexao_min {
+     width: 80px;
+  }
+  #deflexao_max {
+     width: 80px;
+  }
+
+
 .container-imagens {
   display: flex;
   gap: 10px;
