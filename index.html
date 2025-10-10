@@ -33,11 +33,10 @@
 
 
                 <p>
-                    <label for="diametro_externo">Diâmetro Externo (Do): </label>
-                    <div class="input-com-unidade">
+                    <label for="diametro_externo">Diâmetro Externo (D<sub>o</sub>): </label>
+                    
                         <input
-                            type="number"
-                            name="diâmetro"
+                            type="number"                           
                             id="diametro_externo"placeholder="Ex: 2.5"
                             min="0.0001"
                             step="any"
@@ -45,26 +44,22 @@
                             inputmode="decimal"
                             aria-describedby="rdHelp">
                         <span id="unidade_Do" class="unidade_label">mm</span>
-                    </div>
+                    
                 </p>
             
             
             
                 <p>
-                    <label for="Rd">Razão entre Diâmetros (Rd): </label>
+                    <label for="Rd">Razão entre Diâmetros (R<sub>d</sub>): </label>
                      <input
                         type="number"
-                        name="Rd"
                         id="Rd"
                         placeholder="Ex: 2.0"
-                        min="0.0001"
+                        min="0.001"
                         step="any"
                         required
                         inputmode="decimal"
                         aria-describedby="rdHelp">
-                        
-                     
-            
                 </p>
                 
 
@@ -158,8 +153,9 @@
                         <!-- BLOCO DE DIMENSOES -->
                         <div class="dimensoes">
                             <h3>DIMENSÕES</h3>
+
                              <p>
-                                 <label for="diametro_externo_out">Diâmetro Externo (Do):</label>
+                                 <label for="diametro_externo_out">Diâmetro Externo (D<sub>o</sub>):</label>
                                  <input
                                     type="text"
                                     name="diametro_externo_out"
@@ -167,8 +163,9 @@
                                     readonly>
                                      <span id="unidade_diametro_externo" class="unidade_label">mm</span>
                              </p>
+
                             <p>
-                                <label for="diametro_interno">Diâmetro Interno (Di):</label>
+                                <label for="diametro_interno">Diâmetro Interno (D<sub>i</sub>):</label>
                                 <input
                                     type="text"
                                      name="diametro_interno"

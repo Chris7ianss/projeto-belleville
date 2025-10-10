@@ -5,11 +5,11 @@ body {
 }
 
 main {
-   background-color: rgb(235, 153, 153);
+   background-color: #e9eef2;
    padding: 20px;
    border-radius: 5px;
    min-width: 320px;
-   max-width: 1500px;
+   max-width: 2500px;
    margin: auto;
 
 }
@@ -46,7 +46,7 @@ h1 {
 
 
 #dados_projeto {
-    background-color: rgb(245, 245, 245);
+    background-color: #f4f7fb;
     padding: 10px;
     border: 3px;
     border-style: solid;
@@ -60,7 +60,7 @@ h1 {
 }
 #relatorio_final {
    
-    background-color:rgb(245, 245, 245);
+    background-color:#f4f7fb;
     padding: 10px;
     border: 3px;
     border-style: solid;
@@ -95,6 +95,7 @@ h1 {
 
 #forca_plana {
   width: 80px;  /* largura menor que a padrão */
+  
 }
 #diametro_externo {
     width: 80px;
@@ -258,9 +259,9 @@ input-com-unidade {
 }
 
 .selecionada {
-        border: 2px solid rgb(0, 252, 0, 0.7); /* borda verde para selecionada */
+        border: 2px solid rgba(0, 109, 252, 0.7); /* borda verde para selecionada */
         filter: none; /* imagem normal */
-        box-shadow: 0 0 5px 1px rgba(0, 255, 0, 0.7);
+        box-shadow: 0 0 5px 1px rgba(0, 109, 252, 0.7);
     }
 
     .nao-selecionada {
