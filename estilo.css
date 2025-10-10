@@ -36,9 +36,11 @@ h1 {
     flex-wrap: wrap; /*  Permite quebrar linha quando a tela fica menor */
 }
 
-#dados_projeto, 
+
+
+
 #relatorio_final {
-    flex: 1 1 300px;  /*  Ajusta automaticamente o tamanho */
+   
     box-sizing: border-box; /*  Evita que padding e bordas somem à largura */
 }
 
@@ -50,8 +52,8 @@ h1 {
     border-style: solid;
     border-color: rgb(0, 0, 0);
     border-radius: 8px;
-    
-    
+    height: 810px;
+    width: 460px;
     
 
 
@@ -64,6 +66,8 @@ h1 {
     border-style: solid;
     border-color: rgb(19, 0, 0);
     border-radius: 8px;
+    height: 834px;
+    width: 840px;
     
     
    }
@@ -128,29 +132,39 @@ h1 {
 }
 
 #p_plana {
-    width: 150px;
-    border: 2px solid black ;
+    width: 155px;
+    margin-right: 10px;
+    
 }
 #a_plana {
     width: 150px;
-    border: 2px solid black ;
+    margin-right: 10px;
+    
 }
 .container-imagens {
   display: flex;
   gap: 10px;
   justify-content: center;
+  padding: 20px;
 }
 
 .container-imagens img {
   width: 45%;
 }
-#dimensoes {
+#dimensoes_img {
     border: 2px solid black ;
-    width: 200px;
+    width: 140px;
+    display: flex;              /* ativa o modo flex */
+    justify-content: center;    /* centraliza horizontalmente */
+    align-items: center; 
 }
-#tensoes {
+
+
+#tensoes_img {
     border: 2px solid black;
-    width: 185px;
+    width: 150px;
+    
+    
 }
 
 .botao_calcular {
@@ -223,3 +237,25 @@ h1 {
         max-width: none;       /* remove limite de largura */
     }
 }
+input-com-unidade {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.unidade_label {
+  
+  color: #333;
+}
+
+.selecionada {
+        border: 2px solid rgb(0, 252, 0, 0.7); /* borda verde para selecionada */
+        filter: none; /* imagem normal */
+        box-shadow: 0 0 5px 1px rgba(0, 255, 0, 0.7);
+    }
+
+    .nao-selecionada {
+        border: 2px solid black; /* borda preta */
+        filter: grayscale(100%); /* cinza */
+    }
+    

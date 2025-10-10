@@ -1,4 +1,5 @@
 // APARECER BOTÃO DE DESVIO DE FORÇA QUANDO CLICAR EM DORCA_CONSTANTE
+
 let operacaoSelect = document.getElementById("operacao_mola");
 let desvioInput = document.getElementById("desvio");
 let desvioLabel = document.getElementById("desvio_label");
@@ -22,6 +23,73 @@ operacaoSelect.addEventListener("change", atualizarDesvio);
 atualizarDesvio();
 
 
+let unidadeSelect = document.getElementById("unidade_atual");
+    let unidadeLabel_forca = document.getElementById("unidade_forca");
+    let unidadeLabel_Do = document.getElementById("unidade_Do");
+    let unidadeLabel_Dext = document.getElementById("unidade_diametro_externo");
+    let unidadeLabel_Dint = document.getElementById("unidade_diametro_interno");
+    let unidadeLabel_h = document.getElementById("unidade_altura_cone");
+    let unidadeLabel_t = document.getElementById("unidade_espessura");
+    let unidadeLabel_c = document.getElementById("unidade_tensao_c");
+    let unidadeLabel_ti = document.getElementById("unidade_tensao_ti");
+    let unidadeLabel_to = document.getElementById("unidade_tensao_to");
+
+        unidadeSelect.addEventListener("change", () => {
+        if (unidadeSelect.value === "SI") {
+            unidadeLabel_Do.textContent = "mm";
+            unidadeLabel_forca.textContent = "N";
+            unidadeLabel_Dext.textContent = "mm";
+            unidadeLabel_Dint.textContent = "mm";
+            unidadeLabel_h.textContent = "mm";
+            unidadeLabel_t.textContent = "mm";
+            unidadeLabel_c.textContent = "Mpa";
+            unidadeLabel_ti.textContent = "Mpa";
+            unidadeLabel_to.textContent = "Mpa";
+
+           
+        } else {
+            unidadeLabel_Do.textContent = "in";
+            unidadeLabel_forca.textContent = "lbf";
+            unidadeLabel_Dext.textContent = "in";
+            unidadeLabel_Dint.textContent = "in";
+            unidadeLabel_h.textContent = "in";
+            unidadeLabel_t.textContent = "in";
+            unidadeLabel_c.textContent = "psi";
+            unidadeLabel_ti.textContent = "psi";
+            unidadeLabel_to.textContent = "psi";
+           
+        }
+
+        //ESTILIZAÇÃO DAS IMAGEN DE DEFORMAÇÃO AO SELECIONAR O TIPO DE MONTAGEM
+
+
+        });
+
+        const select = document.getElementById("montagem");
+    const pPlana = document.getElementById("p_plana");
+    const aPlana = document.getElementById("a_plana");
+
+    function atualizarImagens() {
+        if(select.value === "posicao_plana") {
+            pPlana.classList.add("selecionada");
+            pPlana.classList.remove("nao-selecionada");
+
+            aPlana.classList.add("nao-selecionada");
+            aPlana.classList.remove("selecionada");
+        } else {
+            aPlana.classList.add("selecionada");
+            aPlana.classList.remove("nao-selecionada");
+
+            pPlana.classList.add("nao-selecionada");
+            pPlana.classList.remove("selecionada");
+        }
+    }
+
+    // Atualiza ao carregar a página
+    atualizarImagens();
+
+    // Atualiza quando o select muda
+    select.addEventListener("change", atualizarImagens);
 
 
 
@@ -35,7 +103,12 @@ function obterEntradas() {
     let material_escolhido = document.getElementById("material").value;
     let ajuste = document.getElementById("ajuste").value;
     let tipo_montagem = document.getElementById("montagem").value;
-    
+    let unidade_atual = document.getElementById("unidade_atual").value;
+
+
+
+ //Declaração de Variaveis
+
     let h_over_t = 0;
     let E = 0;
     let poisson = 0;
@@ -47,9 +120,9 @@ function obterEntradas() {
     let ymaximo = 0;
     let sigma_c = 0;
     let sigma_to = 0;
-     let sigma_ti = 0;
+    let sigma_ti = 0;
 
-
+    
 
 
     //ATRIBUIR VALOR A h_over_t A PARTIR DA SELEÇÃO 
@@ -70,11 +143,21 @@ function obterEntradas() {
         break;
         }
 
-    //Calcular espessura e altura de cone 
-    t = (1/10) * Math.pow((forca_p * Math.pow(Do, 2)) / (132.4 * h_over_t), 1/4);
-    h = h_over_t * t;
+    //Calcular espessura  (a fórmula da espessura muda dependendo da unidade).
 
-    //ESCOLHER YMIN E YMAX.
+    if (unidade_atual === "SI"){
+              t = (1/10) * Math.pow((forca_p * Math.pow(Do, 2)) / (132.4 * h_over_t), 1/4);
+              
+        } else if (unidade_atual === "US") {
+              t =  Math.pow((forca_p * Math.pow(Do, 2)) / (19.2e7 * h_over_t), 1/4);
+              
+        }
+
+    // CALCULO DA ALTURA DO CONE
+            h = h_over_t * t;
+
+
+    //ESCOLHER AS DEFLEXOES YMIN E YMAX.
 
     if (operacao === "operacao_bimodal") {
         if (tipo_montagem === "posicao_plana") {
@@ -202,7 +285,7 @@ function obterEntradas() {
 
 
     
-    //ESOLHA DO TIPO DE MATERIAL SEM AJUSTE E COM AJUSTE
+    //ESOLHA DO TIPO DE MATERIAL SEM AJUSTE E COM AJUSTE (O MODULO DE ESLASTICIDADE E TENSÃO DE ESCOAMENTO DO MATERIAL ESTÃO EM MPA).
 
     if (ajuste === "sim") {// com ajuste
         switch (material_escolhido) {
@@ -275,6 +358,20 @@ function obterEntradas() {
 
         }
         }
+            // FATOR DE CONVERSÃO DO MODULO DE ELASTICIDADE E DA TENSSAÕ DE ESCOAMENTO DE SI PARA US
+
+         if (unidade_atual === "US") {
+
+            E = E*145.038;
+            Sut = Sut*145.038;
+
+            } else if (unidade_atual === "SI"){
+
+            E = E;
+            Sut = Sut;
+
+            }
+
 
     //CALCULO DAS CONSTANTES 
    
@@ -367,14 +464,7 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
 
     }
 
-   
-
-
-
-
-
-
-
+    //FUNÇÃO PARA QUANDO O USUARIO APERTAR O BOTÃO CALCULAR OS RESULTADOS VÃO APARECER NA TELA DE RELATÓRIO DO PROJETO.
 
  function Calcular() {
     const entradas = obterEntradas();
@@ -382,8 +472,7 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
     // Extrair os valores já calculados
     const {
         Do,
-        t,       // espessura já calculada
-        h,       // altura do cone já calculada
+        t,      
         razao_Rd,
         sigma_c,
         sigma_ti,
@@ -393,6 +482,7 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
         E, 
         material_escolhido,
         coeficiente_seguranca,
+         h
     }  = entradas;
 
 
@@ -418,10 +508,10 @@ let tensao_compressao_ymaximo = - ((4 * E * ymaximo) /( K1*Math.pow(Do,2)*(1-Mat
         if (element) element.value = valor.toFixed(3); // arredonda para 3 casas decimais
     }
 
+    
 
 
-
-    // Mostrar todas as variáveis no console para depuração
+    // Mostrar todas as variáveis no console para depuração (APENAS PARA VERIFICAR VARIAVEIS QUE NÂO APARECEM PARA O USUARIO)
 console.log("=== DEBUG: Variáveis calculadas ===");
 console.log(entradas);
 console.log("====================================");
