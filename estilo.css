@@ -5,7 +5,7 @@ body {
 }
 
 main {
-   background-color: #e9eef2;
+   background-color: #000000;
    padding: 20px;
    border-radius: 5px;
    min-width: 320px;
@@ -19,7 +19,7 @@ img {
 }
 
 h1 {
-    background-color: rgb(212, 209, 209);
+    background-color: rgb(255, 255, 255);
     height: 60px;
     padding: 10px;
     margin: auto;
@@ -53,7 +53,7 @@ h1 {
     border-color: rgb(0, 0, 0);
     border-radius: 8px;
     height: 810px;
-    width: 460px;
+    width: 515px;
     
 
 
@@ -67,7 +67,7 @@ h1 {
     border-color: rgb(19, 0, 0);
     border-radius: 8px;
     height: 834px;
-    width: 840px;
+    width: 870px;
     
     
    }
@@ -93,8 +93,10 @@ h1 {
   text-align: center;
 }
 
+/*
+
 #forca_plana {
-  width: 80px;  /* largura menor que a padrão */
+  width: 80px; 
   
 }
 #diametro_externo {
@@ -128,9 +130,18 @@ h1 {
 #tensao_tracao_to {
     width: 80px;
 }
+ #deflexao_min {
+     width: 80px;
+  }
+  #deflexao_max {
+     width: 80px;
+     
+  }
 #coeficiente_seguranca {
-    width: 80px;
-}
+    width: 80px; 
+}*/
+
+/*alinhamento dos inputs e selects */
 
 #p_plana {
     width: 155px;
@@ -143,13 +154,7 @@ h1 {
     
  } 
  
-  #deflexao_min {
-     width: 80px;
-  }
-  #deflexao_max {
-     width: 80px;
-  }
-
+  
 
 .container-imagens {
   display: flex;
@@ -167,12 +172,14 @@ h1 {
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
     align-items: center; 
+    margin-left: 60px;
 }
 
 
 #tensoes_img {
     border: 2px solid black;
-    width: 150px;
+    width: 132px;
+    margin-left: 63px;
     
     
 }
@@ -197,7 +204,7 @@ h1 {
     padding: 10px;
     text-align: center;
     font-weight: bold;
-    margin: 0 auto;
+    margin-left: 20px;
 }
 
 /* Projeto aprovado */
@@ -223,7 +230,7 @@ h1 {
 
 /* Cada bloco interno */
 .relatorio_conteudo > div {
-    flex: 1 1 250px;          /* base mínima 250px, cresce proporcionalmente */
+    flex: 1 1 310px;          /* base mínima 250px, cresce proporcionalmente */
     min-width: 250px;         /* evita que fiquem muito estreitos */
     max-width: 400px;         /* limita o tamanho máximo */
     background-color: rgb(245, 245, 245);
@@ -269,3 +276,95 @@ input-com-unidade {
         filter: grayscale(100%); /* cinza */
     }
     
+    
+
+    #diametro_externo {
+        margin-left: 57px;
+    }
+    #unidade_atual {
+        margin-left: 64px;
+    }
+    #operacao_mola {
+        margin-left: 68px;
+    }
+    #Rd {
+        margin-left: 17px;
+    }
+    #forca_plana {
+        margin-left: 131px;
+
+    }
+    #material-ajuste{
+        margin-left: 20px;
+    }
+    #material {
+        margin-left: 84px;
+    }
+    #ajuste1{
+        margin-left: 10px;
+    }
+    #desvio {
+        margin-left: 10 ;
+    }
+    #montagem {
+        margin-left: 83px;
+    }
+    .unidades, .Do, .Rd, .forca_desvio, .material_ajuste, .montagem, .ht_preload {
+        padding: 3px;
+    }
+     
+
+    #diametro_externo_out {
+        margin-left: 5px;
+    }
+    #diametro_interno {
+        margin-left: 14px;
+    }
+    #altura_cone {
+        margin-left: 32px;
+    }
+    #espessura {
+        margin-left: 72px;
+    }
+
+
+
+    #tensao_compressao {
+        margin-left: 49px;
+    }
+    #tensao_tracao_ti {
+        margin-left: 49px;
+    }
+    #tensao_tracao_to {
+        margin-left: 45px;
+    }
+    #deflexao_min {
+        margin-left: 4px;
+    }
+    #deflexao_max {
+        margin-left: 1px;
+    }
+    #ht_manual{
+        margin-left: 94px;
+        width: 80PX;
+        height: 16PX;
+    }
+    #preload {
+        width: 60px;
+        height:16px;
+    }
+
+
+    #desvio {
+    width: 55px;
+}
+     input {
+        height: 16px;
+        width: 80px;
+        
+    
+    }
+   select {
+    height: 21px;
+   }
+   

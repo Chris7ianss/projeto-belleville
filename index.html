@@ -23,107 +23,135 @@
             <div class= "box" id="dados_projeto">
             <h2>DADOS INICIAIS DE PROJETO</h2>
             <form>
-                  <p>
-                    <label for="unidade_atual">Sistema de Unidades:</label>
-                    <select id="unidade_atual" name="unidade">
-                        <option value="SI">SI </option>
-                        <option value="US">US </option>
-                    </select>
-                </p>
+                  <div class="unidades">
+                      
+                        <label for="unidade_atual">Sistema de Unidades:</label>
+                        <select id="unidade_atual" name="unidade">
+                            <option value="SI">SI </option>
+                            <option value="US">US </option>
+                        </select>
+                  </div>
+                
 
 
-                <p>
-                    <label for="diametro_externo">Diâmetro Externo (D<sub>o</sub>): </label>
+                
+                    <div class = Do>
+                        <label for="diametro_externo">Diâmetro Externo (D<sub>o</sub>): </label>
+                        
+                            <input
+                                type="number"
+                                id="diametro_externo"placeholder="Ex: 2.5"
+                                min="0.0001"
+                                step="any"
+                                required
+                                inputmode="decimal"
+                                aria-describedby="rdHelp">
+                            <span id="unidade_Do" class="unidade_label">mm</span>
+                    </div>
                     
-                        <input
-                            type="number"                           
-                            id="diametro_externo"placeholder="Ex: 2.5"
-                            min="0.0001"
+                
+            
+            
+            
+                
+                    <div class="Rd">
+                        <label for="Rd">Razão entre Diâmetros (R<sub>d</sub>): </label>
+                         <input
+                            type="number"
+                            id="Rd"
+                            placeholder="Ex: 2.0"
+                            min="0.001"
                             step="any"
                             required
                             inputmode="decimal"
                             aria-describedby="rdHelp">
-                        <span id="unidade_Do" class="unidade_label">mm</span>
-                    
-                </p>
-            
-            
-            
-                <p>
-                    <label for="Rd">Razão entre Diâmetros (R<sub>d</sub>): </label>
-                     <input
-                        type="number"
-                        id="Rd"
-                        placeholder="Ex: 2.0"
-                        min="0.001"
-                        step="any"
-                        required
-                        inputmode="decimal"
-                        aria-describedby="rdHelp">
-                </p>
+                    </div>
                 
 
-                <p>
-                     <label for="operacao_mola">Função de Operação da mola:</label>
-                     <select name="operacao_mola" id="operacao_mola">
-                        <option value="operacao_bimodal">Operação Bimodal</option>
-                        <option value="forca_constante">Força Constante</option>
-                        <option value="constante_mola_constante">Constante de mola constante</option>
-                     </select>
-                 </p> 
+                <div class="funcao_operacao">
+                    
+                         <label for="operacao_mola">Função de Operação:</label>
+                         <select name="operacao_mola" id="operacao_mola">
+                            <option value="operacao_bimodal">Operação Bimodal <em>(h/t = 2,828)</em></option>
+                            <option value="forca_constante">Força Constante <em>(h/t = 1,414)</em></option>
+                            <option value="constante_mola_constante">Constante de mola constante <em>(h/t = 0,400)</em></option>
+                            <option value="outro_valor">Outro Valor</option>
+                         </select>
+
+                    <div class="ht_preload">
+                              <label for="ht_manual" id="label_ht_manual" style="display:none;">Digite a razão h/t:</label>
+                              <input type="number" id="ht_manual" placeholder="1,33" style="display:none;">
+                                                      
+                              
+                              <label for="preload" id="label_preload" style="display:none;">Preload:</label>
+                              <input type="number" id="preload" placeholder="Ex: 0,5" style="display:none;">
+                    </div>
+                </div>
 
 
-                <p>
-                    <label for="forca_plana">Força plana:</label>
-                    <input
-                        type="number"
-                        name="forca_plana"
-                        id="forca_plana"
-                        placeholder="Ex: 10 N"
-                        min="0.01"
-                        step="any"
-                        required
-                        inputmode="decimal"
-                        aria-describedby="rdHelp">
-                        <span id="unidade_forca" class="unidade_label">N</span>
+                
+                    <div class="forca_desvio">
+                        
+                            <label for="forca_plana">Força plana:</label>
+                            <input
+                                type="number"
+                                id="forca_plana"
+                                placeholder="Ex: 10 N"
+                                min="0.01"
+                                step="any"
+                                required
+                                inputmode="decimal"
+                                aria-describedby="rdHelp">
+                                <span id="unidade_forca" class="unidade_label">N</span>
+                        
+                        
+                       
+                            <label for="desvio" id="desvio_label">&plusmn;:</label>
+                            <input
+                            type="number"
+                            id="desvio"
+                            placeholder="Ex: 10"
+                            min="0"
+                            max="10"
+                            step="1"
+                        >
+                         <span id="porcentagem" >%</span>
+                       
+                    </div>
 
-                    <label for="desvio" id="desvio_label">&plusmn;:</label>
-                    <input
-                    type="number"
-                    name="desvio"
-                    id="desvio"
-                    placeholder="Ex: 10"
-                    min="0"
-                    max="10"
-                    step="1" 
-                   > 
-                   <span id="porcentagem" >%</span>
-
-                </p>
+                
             
-                 <p>
-                     <label for="material">Escolha o Material:</label>
-                     <select name="material" id="material">
-                        <option value="aco_carbono">Aço Carbono</option>
-                        <option value="aco_inox_301">Aço Inox 301</option>
-                        <option value="aco_inox_302">Aço Inox 302</option>
-                        <option value="17_7ph_rh950">17-7PH RH950</option>
-                         <option value="17_7ph_cond_c">17-7PH Cond. C</option>
-                     </select>
-                     <label for="ajuste">Ajuste:</label>
-                                 <select name="ajuste" id="ajuste">
-                        <option value="sim">Sim</option>
-                        <option value="nao">Não</option>
-                     </select>
+                 
+                      <div class="material_ajuste"> 
+                         <label for="material">Escolha o Material:</label>
+                         <select id="material">
+                            <option value="aco_carbono">Aço Carbono</option>
+                            <option value="aco_inox_301">Aço Inox 301</option>
+                            <option value="aco_inox_302">Aço Inox 302</option>
+                            <option value="17_7ph_rh950">17-7PH RH950</option>
+                             <option value="17_7ph_cond_c">17-7PH Cond. C</option>
+                         </select>
+                     
 
-                 </p>
+
+                    
+                         <label for="ajuste" id="ajuste1">Ajuste:</label>
+                                     <select name="ajuste" id="ajuste">
+                            <option value="sim">Sim</option>
+                            <option value="nao">Não</option>
+                         </select>
+                     </div>
+
+                 
                     <!-- Botões de escolha -->
 
-                    <label for="montagem">Tipo de Montagem:</label>
-                    <select name="montagem" id="montagem">
-                        <option value="posicao_plana">Deformação até posição plana</option>
-                        <option value="alem_posicao_plana"> Deformação além da posição plana</option>
-                    </select>
+                    <div class="montagem">
+                        <label for="montagem">Tipo de Montagem:</label>
+                        <select id="montagem">
+                            <option value="posicao_plana">Deformação até posição plana</option>
+                            <option value="alem_posicao_plana"> Deformação além da posição plana</option>
+                        </select>
+                    </div>
                 
 
              <div class="container-imagens">
@@ -173,26 +201,31 @@
                                      readonly>
                                       <span id="unidade_diametro_interno" class="unidade_label">mm</span>
                             </p>
-                            <p>
-                                <label for="altura_cone">Altura do cone (h):</label>
-                                    <input
-                                    type="text"
-                                    name="altura_cone"
-                                    id="altura_cone"
-                                    readonly>
-                                    <span id="unidade_altura_cone" class="unidade_label">mm</span>
-                            </p>
-                            <p>
+
+                             <p>
                                 <label for="espessura">Espessura (t) </label>
                                     <input
-                                     type="text"
+                                     type="number"
                                      name="espessura"
                                      id="espessura"
                                      readonly>
                                      <span id="unidade_espessura" class="unidade_label">mm</span>
+                                     <button type="button" id="alterar_espessura" class="botao-alterar">Alterar</button>
                             
 
                             </p>
+
+                            <p>
+                                <label for="altura_cone">Altura do Cone (h):</label>
+                                    <input
+                                    type="number"
+                                    name="altura_cone"
+                                    id="altura_cone"
+                                    readonly>
+                                    <span id="unidade_altura_cone" class="unidade_label">mm</span>
+                                    <button type="button" id="alterar_altura" class="botao-alterar">Alterar</button>
+                            </p>
+                           
 
                             <div class="dimensoes">
                                 <img id="dimensoes_img" src="dimensoes.png" alt="dimensoes da mola">
@@ -228,7 +261,7 @@
                                      <span id="unidade_tensao_to" class="unidade_label">Mpa</span>
 
                             </p>
-                                <label for="deflexao_min">Deflexão Mínima</label>
+                                <label for="deflexao_min">Deflexão Mínima:</label>
                                 <input 
                                 type="number"  
                                 id="deflexao_min">
@@ -236,30 +269,33 @@
                             <p>
 
                                 </p>
-                                <label for="deflexao_max">Deflexão Máxima</label>
+                                <label for="deflexao_max">Deflexão Máxima:</label>
                                 <input 
                                 type="number"  
                                 id="deflexao_max">
                                 <span id="unidade_defle_max" >mm</span>
                             <p>         
+                            
+                            <P> <h3> VIABILIDADE DO PROJETO</h3>
+
+
+                            </P>
+                                
+                                <label for="coeficiente_seguranca">Coeficiente de Seguraça:</label>
+                                    <input
+                                    type="text"
+                                    name="coeficiente_seguranca"
+                                    id="coeficiente_seguranca">
+                            
+                            <p><div id="status">Projeto Aprovado</div></p>
+
 
                             </p>
                                 <div class="tensoes">
                                     <img  id="tensoes_img" src="tensoes.png" alt="tensoes">
                                 </div>
                         </div>
-                        <!-- BLOCO DE VIABILIDADE DO PROJETO-->
-                        <div class="viabilidade">
-                            <h3> VIABILIDADE DO PROJETO</h3>
-                            <P>
-                                <label for="coeficiente_seguranca">Coeficiente de Seguraça</label>
-                                    <input
-                                    type="text"
-                                    name="coeficiente_seguranca"
-                                    id="coeficiente_seguranca">
-                            </P>
-                            <p><div id="status">Projeto Aprovado</div></p>
-                        </div>
+                      
                     </div>
                 </form>
             </div>
