@@ -134,7 +134,7 @@ function atualizaVisualInputs() {
     if (botaoEspessura) botaoEspessura.textContent = "Usar valor calculado";
   } else {
     espessuraInput.setAttribute("readonly", true);
-    espessuraInput.style.backgroundColor = "#f2f2f2";
+    espessuraInput.style.backgroundColor = "#ffffffff";
     if (botaoEspessura) botaoEspessura.textContent = "Alterar manualmente";
   }
 
@@ -144,7 +144,7 @@ function atualizaVisualInputs() {
     if (botaoAltura) botaoAltura.textContent = "Usar valor calculado";
   } else {
     alturaInput.setAttribute("readonly", true);
-    alturaInput.style.backgroundColor = "#f2f2f2";
+    alturaInput.style.backgroundColor = "#ffffffff";
     if (botaoAltura) botaoAltura.textContent = "Alterar manualmente";
   }
 }
