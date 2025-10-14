@@ -27,7 +27,7 @@ const selectMontagem = document.getElementById("montagem");
 const pPlana = document.getElementById("p_plana");
 const aPlana = document.getElementById("a_plana");
 
-// Inputs de saída/edição manual (existem no teu HTML)
+// Inputs de saída/edição manual 
 const espessuraInput = document.getElementById("espessura");         // campo editável/saida t
 const alturaInput = document.getElementById("altura_cone");          // campo editável/saida h
 const botaoEspessura = document.getElementById("alterar_espessura");
@@ -38,7 +38,7 @@ let modoManualEspessura = false;
 let modoManualAltura = false;
 
 
-// ---------- Funções utilitárias e inicializações ----------
+
 
 // Mostrar / esconder input desvio dependendo da operação selecionada
 function atualizarDesvio() {
@@ -182,6 +182,7 @@ function obterEntradas() {
   const ajuste = document.getElementById("ajuste").value;
   const tipo_montagem = document.getElementById("montagem").value;
   const unidade_atual = document.getElementById("unidade_atual").value;
+  const Fator_seguranca = document.getElementById("coeficiente_min").value;
 
   // VARIÁVEIS INICIAIS
   let h_over_t;
@@ -330,7 +331,7 @@ if (operacao === "outro_valor") {
     Sut = Sut * 145.038;
   }
 
-  // ---------- CONSTANTES K1..K5 ----------
+  // CONSTANTES K1..K5
   // proteger contra razao_Rd inválida (evitar divisão por zero/log)
   const safeRd = (!isFinite(Math.log(razao_Rd)) || razao_Rd <= 1) ? 1.0001 : razao_Rd;
 
@@ -340,7 +341,7 @@ if (operacao === "outro_valor") {
   const K4 = ((safeRd * Math.log(safeRd) - (safeRd - 1)) / Math.log(safeRd)) * (safeRd / Math.pow((safeRd - 1), 2));
   const K5 = safeRd / (2 * (safeRd - 1));
 
-  // ---------- CÁLCULO DAS TENSÕES ----------
+  // CÁLCULO DAS TENSÕES 
   // tensao compressao ymin e ymax
   const tensao_compressao_yminimo = -((4 * E * yminimo * (K2 * (h - yminimo / 2) + K3 * t)) / (K1 * Math.pow(Do, 2) * (1 - Math.pow(poisson, 2))));
   const tensao_compressao_ymaximo = -((4 * E * ymaximo) / (K1 * Math.pow(Do, 2) * (1 - Math.pow(poisson, 2))) * (K2 * (h - ymaximo / 2) + K3 * t));
@@ -363,11 +364,12 @@ if (operacao === "outro_valor") {
   const maior_tensao = Math.max(Math.abs(sigma_c || 0), Math.abs(sigma_to || 0), Math.abs(sigma_ti || 0));
   const coeficiente_seguranca = (percentual_Sut * Sut) / (maior_tensao || 1); // evita div/0
 
+
   // atualiza status visual
   const statusDiv = document.getElementById("status");
   if (statusDiv) {
     statusDiv.classList.remove("aprovado", "reprovado");
-    if (coeficiente_seguranca < 1) {
+    if (coeficiente_seguranca < Fator_seguranca) {
       statusDiv.textContent = "Projeto Reprovado";
       statusDiv.classList.add("reprovado");
     } else {
@@ -381,7 +383,7 @@ if (operacao === "outro_valor") {
     Do, razao_Rd, forca_p, desvio_forca, operacao, material_escolhido, ajuste, tipo_montagem,
     h_over_t, t, percentual_Sut, h, yminimo, ymaximo,
     K1, K2, K3, K4, K5,
-    sigma_ti, sigma_c, sigma_to, maior_tensao, coeficiente_seguranca, poisson, Sut, E
+    sigma_ti, sigma_c, sigma_to, maior_tensao, coeficiente_seguranca, poisson, Sut, E, Fator_seguranca
   };
 }
 
@@ -413,8 +415,7 @@ function Calcular() {
   for (const [chave, valor] of Object.entries(resultados)) {
     const element = document.getElementById(chave + "_out") || document.getElementById(chave);
     if (element) {
-      // se input/textarea: colocar value, se elemento normal: colocar textContent
-      if ("value" in element) {
+           if ("value" in element) {
         element.value = (typeof valor === "number" && !isNaN(valor)) ? Number(valor).toFixed(3) : (valor ?? "");
       } else {
         element.textContent = (typeof valor === "number" && !isNaN(valor)) ? Number(valor).toFixed(3) : (valor ?? "");

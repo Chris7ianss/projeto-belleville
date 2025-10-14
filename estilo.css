@@ -5,7 +5,7 @@ body {
 }
 
 main {
-   background-color: #000000;
+   background-color: #4b0e0e;
    padding: 20px;
    border-radius: 5px;
    min-width: 320px;
@@ -20,7 +20,7 @@ img {
 
 h1 {
     background-color: rgb(255, 255, 255);
-    height: 60px;
+    height: 40px;
     padding: 10px;
     margin: auto;
     text-align: center;
@@ -367,4 +367,6 @@ input-com-unidade {
    select {
     height: 21px;
    }
-   
+   #coeficiente_min {
+    margin-left: 8px;
+   }
