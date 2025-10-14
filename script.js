@@ -201,7 +201,7 @@ function obterEntradas() {
   // ATRIBUIR VALOR A h_over_t A PARTIR DA SELEÇÃO
   switch (operacao) {
     case "operacao_bimodal":
-      h_over_t = 1.414;
+      h_over_t = 2.828;
       break;
     case "forca_constante":
       h_over_t = 1.414;
