@@ -2,6 +2,7 @@
 const operacaoSelect = document.getElementById("operacao_mola");
 const desvioInput = document.getElementById("desvio");
 const desvioLabel = document.getElementById("desvio_label");
+const desvioSpan = document.getElementById("porcentagem");
 
 // --- NOVO: inputs para "Outro valor" ---
 let hSobreTInput = document.getElementById("ht_manual");  // input que o usuário digita h/t
@@ -20,6 +21,8 @@ const unidadeLabel_t = document.getElementById("unidade_espessura");
 const unidadeLabel_c = document.getElementById("unidade_tensao_c");
 const unidadeLabel_ti = document.getElementById("unidade_tensao_ti");
 const unidadeLabel_to = document.getElementById("unidade_tensao_to");
+const unidadeLabel_defle = document.getElementById("unidade_deflexao");
+const unidadeLabel_deflemin =document.getElementById("unidade_deflemin");
 
 const selectMontagem = document.getElementById("montagem");
 const pPlana = document.getElementById("p_plana");
@@ -43,9 +46,11 @@ function atualizarDesvio() {
   if (operacaoSelect.value === "forca_constante") {
     desvioInput.style.display = "inline-block";
     desvioLabel.style.display = "inline-block";
+    desvioSpan.style.display =  "inline-block";
   } else {
     desvioInput.style.display = "none";
     desvioLabel.style.display = "none";
+    desvioSpan.style.display =  "none";
   }
 }
 operacaoSelect.addEventListener("change", atualizarDesvio);
@@ -85,6 +90,8 @@ function atualizarLabelsUnidade() {
     unidadeLabel_c.textContent = "Mpa";
     unidadeLabel_ti.textContent = "Mpa";
     unidadeLabel_to.textContent = "Mpa";
+    unidadeLabel_defle.textContent = "mm";
+    unidadeLabel_deflemin.textContent = "mm";
   } else {
     unidadeLabel_Do.textContent = "in";
     unidadeLabel_forca.textContent = "lbf";
@@ -95,6 +102,8 @@ function atualizarLabelsUnidade() {
     unidadeLabel_c.textContent = "psi";
     unidadeLabel_ti.textContent = "psi";
     unidadeLabel_to.textContent = "psi";
+    unidadeLabel_defle.textContent = "in";
+    unidadeLabel_deflemin.textContent = "in";
   }
 }
 unidadeSelect.addEventListener("change", () => {
@@ -167,8 +176,7 @@ if (botaoAltura) {
 }
 
 
-// ---------- Funções principais: obterEntradas e Calcular ----------
-
+// FUNÇÃO PRINCIPAL 
 function obterEntradas() {
   // ENTRADAS DO USUÁRIO
   const Do = Number(document.getElementById("diametro_externo").value) || 0;
@@ -397,6 +405,8 @@ function Calcular() {
   } = entradas;
 
   const Di = Do / (razao_Rd || 1);
+
+
 
   const resultados = {
     diametro_externo: Do,

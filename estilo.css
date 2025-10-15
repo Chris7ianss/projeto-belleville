@@ -2,28 +2,52 @@
 
 body {
     font-family: Arial, sans-serif;
+    margin: 0px;
+    
 }
+header {
+  
+  background-color: rgb(233, 89, 89); /* mantém o vermelho original */
+  height: 100px; /* 🔹 aumenta a altura */
+  display: flex; /* permite centralizar facilmente o conteúdo */
+  align-items: center; /* centraliza verticalmente */
+  justify-content: center; /* centraliza horizontalmente */
+  color: white; /* texto branco */
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15); /* sombra sutil */
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1); /* linha de separação */
+}
+header h1 {
+  font-size: 2rem; /* 🔹 aumenta o tamanho do título */
+  letter-spacing: 1px; /* dá um pequeno espaçamento nas letras */
+  margin: 0; /* remove margens extras */
+  text-transform: uppercase; /* deixa mais marcante */
+}
+   
 
 main {
-   background-color: #e67b7b;
-   padding: 20px;
-   border-radius: 5px;
+   
+   padding: 2px;
+   border-radius: 8px;
    min-width: 320px;
    max-width: 2500px;
    margin: auto;
+   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+   background-color: #f9fafc; 
+   
 
 }
+
 img {
     width: 100%;
     height: auto;
 }
 
 h1 {
-    background-color: rgb(255, 255, 255);
     height: 40px;
     padding: 10px;
     margin: auto;
     text-align: center;
+    
    
 }
 
@@ -50,10 +74,11 @@ h1 {
     padding: 10px;
     border: 3px;
     border-style: solid;
-    border-color: rgb(0, 0, 0);
+    border-color: rgb(255, 255, 255);
     border-radius: 8px;
-    height: 810px;
-    width: 515px;
+    min-height: 750px;
+    max-height: 900px;
+    width: 550px;
     
 
 
@@ -64,13 +89,25 @@ h1 {
     padding: 10px;
     border: 3px;
     border-style: solid;
-    border-color: rgb(19, 0, 0);
+    border-color: rgb(255, 255, 255);
     border-radius: 8px;
-    height: 834px;
+    min-height: 776px;
+    max-height: 1500px;
     width: 950px;
-    
-    
-   }
+}
+#dados_projeto,
+#relatorio_final {
+  background-color: #ffffff; /* fundo branco para destacar */
+  padding: 15px;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6; /* borda bem suave */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* 🌟 sombra profissional */
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+
+
+
+
 
    .relatorio_conteudo {
     display: flex;
@@ -101,12 +138,12 @@ h1 {
 /*alinhamento dos inputs e selects */
 
 #p_plana {
-    width: 155px;
+    width: 135px;
     margin-right: 10px;
     
 }
 #a_plana {
-    width: 150px;
+    width: 130px;
     margin-right: 10px;
     
  } 
@@ -124,7 +161,7 @@ h1 {
   width: 45%;
 }
 #dimensoes_img {
-    border: 2px solid black ;
+    border: 2px solid rgb(255, 255, 255) ;
     width: 147px;
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
@@ -134,7 +171,7 @@ h1 {
 
 
 #tensoes_img {
-    border: 2px solid black;
+    border: 2px solid rgb(255, 255, 255);
     width: 132px;
     margin-left: 196px;
     
@@ -161,21 +198,39 @@ h1 {
     padding: 10px;
     text-align: center;
     font-weight: bold;
-    margin-left: 74px;
+    margin-left: 90px;
 }
 
 /* Projeto aprovado */
 .aprovado {
-    background-color: green;
+  background: linear-gradient(135deg, #28a745, #5cd65c); /* verde gradiente */
     color: white;
-    border: 2px solid darkgreen;
+    font-weight: 600;
+    padding: 12px 20px; /* mais espaçamento interno */
+    border-radius: 4px; /* cantos arredondados */
+    border: none; /* remove borda dura */
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* sombra suave 
+    transition: all 0.3s ease; /* transição suave */
+    display: inline-block;
+    min-width: 150px;
 }
+
+
 
 /* Projeto reprovado */
 .reprovado {
-    background-color: red;
+    background: linear-gradient(135deg, #dc3545, #ff5c5c); 
     color: white;
-    border: 2px solid darkred;
+    font-weight: 600;
+    padding: 12px 20px;
+    border-radius: 4px;
+    border: none;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+    display: inline-block;
+    min-width: 150px;
 }
 .relatorio_conteudo {
     display: flex;
@@ -189,8 +244,8 @@ h1 {
 .relatorio_conteudo > div {
     flex: 1 1 310px;          /* base mínima 250px, cresce proporcionalmente */
     min-width: 250px;         /* evita que fiquem muito estreitos */
-    max-width: 400px;         /* limita o tamanho máximo */
-    background-color: rgb(245, 245, 245);
+    max-width: 415px;         /* limita o tamanho máximo */
+    background-color: rgb(255, 255, 255);
     padding: 10px;
     border-radius: 8px;
     box-sizing: border-box;   /* padding não aumenta a largura */
@@ -307,13 +362,13 @@ input-com-unidade {
         height: 16PX;
     }
     #preload {
-        width: 60px;
+        width: 69px;
         height:16px;
     }
 
 
     #desvio {
-    width: 55px;
+    width: 60px;
 }
      input {
         height: 16px;
@@ -322,7 +377,7 @@ input-com-unidade {
     
     }
    select {
-    height: 21px;
+    height: 30px;
    }
    #coeficiente_min {
     margin-left: 8px;
@@ -333,4 +388,106 @@ input-com-unidade {
    #FS{
     margin-left: 50px;
    }
-   
+   input:focus,
+select:focus {
+  border-color: rgb(233, 89, 89); /* vermelho do header */
+  box-shadow: 0 0 5px rgba(233, 89, 89, 0.4);
+  outline: none;
+  background-color: #fff;
+}
+input:hover,
+select:hover {
+  border-color: #bdbdbd;
+  background-color: #ffffff;
+}
+input,
+select {
+   /* largura padrão */
+  padding: 6px 10px; /* espaço interno */
+  border: 1px solid #ccc;
+  border-radius: 4px; /* cantos arredondados */
+  background-color: #f9f9f9; /* fundo claro */
+  font-size: 14px;
+  transition: all 0.3s ease; /* animação suave ao interagir */
+} 
+
+/* Botões de ação: Calcular, Voltar, etc */
+.botao_calcular button,
+.botao_voltar button {
+  background-color: rgb(233, 89, 89); /* vermelho principal */
+  color: white;
+  border: none;
+  border-radius: 8px; /* cantos mais arredondados */
+  padding: 12px 25px; /* espaçamento interno maior */
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15); /* sombra leve */
+  transition: all 0.3s ease; /* transição suave */
+}
+
+/* Efeito ao passar o mouse */
+.botao_calcular button:hover,
+.botao_voltar button:hover {
+  background-color: rgb(255, 100, 100); /* vermelho mais claro */
+  transform: translateY(-2px); /* efeito de “flutuar” */
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2); /* sombra mais intensa */
+}
+
+/* Efeito ao clicar */
+.botao_calcular button:active,
+.botao_voltar button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+
+/* 🎓 Estilo para unidades técnicas em itálico */
+.unidade_label {
+  
+  font-style: italic;   /* itálico elegante */
+  font-size: 1rem;
+  color: #000000;
+  font-weight: 500;
+  margin-left: 4px;
+  letter-spacing: 0.3px;
+  
+}
+
+
+/* Botão "Alterar" refinado */
+.botao-alterar {
+  background-color: #dbdbdb;       /* azul técnico */
+  color: #000000;
+  border: none;
+  border-radius: 4px;              /* cantos arredondados */
+  padding: 0px 0px;               /* mantêm o tamanho compacto */
+  font-size: 0.9rem;
+  font-family: "Roboto", "Segoe UI", sans-serif;
+  cursor: pointer;
+  transition: all 0.2s ease;       /* animação suave ao passar o mouse */
+  vertical-align: middle;
+  width: 50px;
+}
+
+/* Efeito hover (passar o mouse) */
+.botao-alterar:hover {
+  background-color: #ffffff;       /* azul mais escuro */
+  box-shadow: 0 0 5px rgba(0, 120, 215, 0.5);
+}
+
+/* Efeito ao clicar */
+.botao-alterar:active {
+  background-color: #004a82;
+  transform: scale(0.97);
+}
+.footer {
+
+background-color: #e05a55; /* mesma cor do header */
+    color: white; /* texto branco */
+    text-align: center; /* centraliza o texto */
+    padding: 15px 0; /* espaçamento interno */
+    font-weight: bold;
+    margin-top: 30px; /* espaçamento do conteúdo acima */
+    
+}

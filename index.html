@@ -3,12 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-    
+    <title>Calculadora de Mola Belleville</title>
+     <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="estilo.css">
 </head>
 <body>
-    <h1>DIMENSIONAMENTO DE MOLA BELLEVILLE</h1>
+    <header> <h1>DIMENSIONAMENTO DE MOLA BELLEVILLE</h1>
+  </header>
+    
   
     <main>
 
@@ -21,7 +23,11 @@
             
 <!-- BLOCO DO PROJETO --> 
             <div class= "box" id="dados_projeto">
+
             <h2>DADOS INICIAIS DE PROJETO</h2>
+
+
+
             <form>
                   <div class="unidades">
                       
@@ -41,7 +47,7 @@
                             <input
                                 type="number"
                                 id="diametro_externo"placeholder="Ex: 24.5"
-                                min="0.0001"
+                                min="0.01"
                                 step="any"
                                 required
                                 inputmode="decimal"
@@ -171,7 +177,7 @@
                 <!-- Botão de continuar -->
 
                 <div class="botao_calcular">
-                    <P><button type="button" onclick="Calcular()">Calcular</button></P>
+                    <P style="margin-top: 1px;"><button type="button" onclick="Calcular()">Calcular</button></P>
                 </div>
             </form>
             </div>
@@ -236,7 +242,7 @@
                             
                         
 
-                            <h3>TENSÕES CRÍTICAS</h3>
+                            <h3 style="margin-top: 40px;">TENSÕES CRÍTICAS</h3>
                             <p>
                                 <label for="tensao_compressao">Tensão de Compressão &sigma;<sub>c</sub>: </label>
                                     <input
@@ -261,22 +267,22 @@
                                     id="tensao_tracao_to">
                                      <span id="unidade_tensao_to" class="unidade_label">Mpa</span>
 
-                                 <h3>DEFLEXÃO</h3>
+                                 <h3 style="margin-top: 40px;">DEFLEXÃO</h3>
 
                             </p>
                                 <label for="deflexao_min">Deflexão Mínima:</label>
                                 <input 
-                                type="number"  
+                                type="text"  
                                 id="deflexao_min">
-                                <span id="unidade_defle_min" >mm</span>
+                                <span id="unidade_deflemin" class="unidade_label">mm</span>
                             <p>
 
                                 </p>
                                 <label for="deflexao_max">Deflexão Máxima:</label>
                                 <input 
-                                type="number"  
+                                type="text"  
                                 id="deflexao_max">
-                                <span id="unidade_defle_max" >mm</span>
+                                <span id="unidade_deflexao" class="unidade_label">mm</span>
                            
 
                           
@@ -319,7 +325,7 @@
             </div>
         </div>
     </main>
-    <footer> <p> </p></footer>
+    <footer class="footer">  <p>Christian Silva Santos | Universidade Federal do Recôncavo da Bahia | Curso: Engenharia Mecânica</p></footer>
     <script src="script.js"></script>
 </body>
 </html>
