@@ -1,0 +1,209 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Calculadora de Bhaskara — Gerar PDF</title>
+  <style>
+    :root{font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;}
+    body{background:#f4f6fb;color:#1f2937;margin:0;padding:20px;display:flex;align-items:center;justify-content:center;min-height:100vh}
+    .card{background:#fff;border-radius:12px;box-shadow:0 6px 30px rgba(32,41,54,0.08);width:100%;max-width:880px;padding:22px}
+    h1{margin:0 0 10px;font-size:20px}
+    form{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;align-items:end}
+    label{display:block;font-size:13px;color:#475569}
+    input[type=number]{width:100%;padding:10px;border-radius:8px;border:1px solid #d1d5db;font-size:14px}
+    .actions{display:flex;gap:8px;margin-top:12px}
+    button{padding:10px 14px;border-radius:8px;border:0;background:#0ea5a4;color:white;font-weight:600;cursor:pointer}
+    button.secondary{background:#64748b}
+    .result{margin-top:18px;background:#f8fafc;padding:14px;border-radius:8px;border:1px solid #e6eef5}
+    pre{white-space:pre-wrap;margin:0;font-family:inherit}
+    .footer{margin-top:14px;font-size:13px;color:#64748b}
+    @media(max-width:720px){form{grid-template-columns:1fr} .actions{flex-direction:column}}
+  </style>
+  <!-- jsPDF via CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+  <main class="card">
+    <h1>Calculadora de Bhaskara</h1>
+    <p>Informe os coeficientes <strong>a</strong>, <strong>b</strong> e <strong>c</strong> da equação ax² + bx + c = 0. O site calcula o discriminante (Δ), as raízes (quando existirem) e gera um PDF com os resultados e os passos.</p>
+
+    <form id="form">
+      <div>
+        <label for="a">a</label>
+        <input id="a" type="number" step="any" value="1" required />
+      </div>
+      <div>
+        <label for="b">b</label>
+        <input id="b" type="number" step="any" value="-3" required />
+      </div>
+      <div>
+        <label for="c">c</label>
+        <input id="c" type="number" step="any" value="2" required />
+      </div>
+
+      <div style="grid-column:1 / -1;display:flex;justify-content:flex-start;gap:8px;margin-top:6px">
+        <div class="actions">
+          <button type="button" id="calcular">Calcular</button>
+          <button type="button" id="limpar" class="secondary">Limpar</button>
+          <button type="button" id="gerarPdf" class="secondary">Gerar PDF</button>
+        </div>
+      </div>
+    </form>
+
+    <div id="saida" class="result" aria-live="polite">
+      <strong>Resultado:</strong>
+      <div id="conteudoSaida" style="margin-top:8px">
+        <em>Preencha os coeficientes e clique em "Calcular".</em>
+      </div>
+    </div>
+
+    <div class="footer">Criado por você — Calculadora simples de Bhaskara com exportação para PDF.</div>
+  </main>
+
+  <script>
+    const elA = document.getElementById('a');
+    const elB = document.getElementById('b');
+    const elC = document.getElementById('c');
+    const btnCalc = document.getElementById('calcular');
+    const btnLimpar = document.getElementById('limpar');
+    const btnPdf = document.getElementById('gerarPdf');
+    const saida = document.getElementById('conteudoSaida');
+
+    function formatNum(x){
+      if (!isFinite(x)) return String(x);
+      // mostra com até 6 casas, removendo zeros finais
+      return Number.parseFloat(x.toFixed(6)).toString();
+    }
+
+    function calcular(a,b,c){
+      // tratado a=0 (não é quadrática)
+      if (a === 0){
+        // bx + c = 0 => x = -c/b se b != 0
+        if (b === 0){
+          return {erro: c === 0 ? 'Equação indeterminada (0 = 0)' : 'Equação inconsistente (sem solução)'};
+        }
+        const x = -c / b;
+        return {tipo:'linear', x: x};
+      }
+
+      const delta = b*b - 4*a*c;
+      if (delta < 0) return {tipo:'complexo', delta};
+      const sqrtD = Math.sqrt(delta);
+      const x1 = (-b + sqrtD) / (2*a);
+      const x2 = (-b - sqrtD) / (2*a);
+      return {tipo:'real', delta, x1, x2};
+    }
+
+    function montarTextoResultado(a,b,c,resp){
+      const lines = [];
+      const timestamp = new Date().toLocaleString();
+      lines.push(`Equação: (${a})x² + (${b})x + (${c}) = 0`);
+      lines.push(`Data: ${timestamp}`);
+      lines.push('');
+
+      if (resp.erro){
+        lines.push('Erro: ' + resp.erro);
+        return lines.join('\n');
+      }
+
+      if (resp.tipo === 'linear'){
+        lines.push('Observação: a = 0 → equação linear do tipo bx + c = 0');
+        lines.push(`Solução: x = ${formatNum(resp.x)}`);
+        return lines.join('\n');
+      }
+
+      if (resp.tipo === 'complexo'){
+        lines.push(`Discriminante (Δ) = b² - 4ac = ${formatNum(resp.delta)} < 0`);
+        lines.push('As raízes são complexas (não há raízes reais).');
+        return lines.join('\n');
+      }
+
+      // real
+      lines.push(`Discriminante (Δ) = b² - 4ac = ${formatNum(resp.delta)}`);
+      lines.push('Cálculo das raízes (fórmula de Bhaskara):');
+      lines.push(`x₁ = (-b + √Δ) / (2a) = ${formatNum(resp.x1)}`);
+      lines.push(`x₂ = (-b - √Δ) / (2a) = ${formatNum(resp.x2)}`);
+
+      // passos detalhados
+      lines.push('');
+      lines.push('Passos (detalhado):');
+      lines.push(`1) b² = (${b})² = ${formatNum(b*b)}`);
+      lines.push(`2) 4ac = 4·(${a})·(${c}) = ${formatNum(4*a*c)}`);
+      lines.push(`3) Δ = b² - 4ac = ${formatNum(resp.delta)}`);
+      lines.push(`4) √Δ = ${formatNum(Math.sqrt(resp.delta))}`);
+      lines.push(`5) x₁ = (-(${b}) + √Δ) / (2·${a}) = ${formatNum(resp.x1)}`);
+      lines.push(`6) x₂ = (-(${b}) - √Δ) / (2·${a}) = ${formatNum(resp.x2)}`);
+
+      return lines.join('\n');
+    }
+
+    function mostrarResultado(texto){
+      saida.innerHTML = '<pre>' + escapeHtml(texto) + '</pre>';
+    }
+
+    function escapeHtml(unsafe){
+      return unsafe.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    btnCalc.addEventListener('click', () => {
+      const a = Number(elA.value);
+      const b = Number(elB.value);
+      const c = Number(elC.value);
+      const resp = calcular(a,b,c);
+      const texto = montarTextoResultado(a,b,c,resp);
+      mostrarResultado(texto);
+      // guarda resultado no botão para gerar pdf depois
+      btnPdf.dataset.texto = texto;
+    });
+
+    btnLimpar.addEventListener('click', () => {
+      elA.value = '';
+      elB.value = '';
+      elC.value = '';
+      saida.innerHTML = '<em>Preencha os coeficientes e clique em "Calcular".</em>';
+      delete btnPdf.dataset.texto;
+    });
+
+    btnPdf.addEventListener('click', async () => {
+      // precisa ter resultado
+      const texto = btnPdf.dataset.texto;
+      if (!texto){
+        alert('Faça um cálculo primeiro para poder gerar o PDF.');
+        return;
+      }
+
+      const { jsPDF } = window.jspdf;
+      const doc = new jsPDF({unit:'pt', format:'a4'});
+
+      const margem = 40;
+      const largura = doc.internal.pageSize.getWidth() - margem*2;
+      const linhas = doc.splitTextToSize(texto, largura);
+
+      // Cabeçalho
+      doc.setFontSize(18);
+      doc.text('Relatório — Bhaskara', margem, 60);
+      doc.setFontSize(11);
+      doc.text('Gerado em: ' + new Date().toLocaleString(), margem, 80);
+
+      // linha
+      doc.setLineWidth(0.5);
+      doc.line(margem, 88, doc.internal.pageSize.getWidth()-margem, 88);
+
+      // conteúdo
+      doc.setFontSize(12);
+      doc.text(linhas, margem, 110);
+
+      // salvar
+      const aVal = elA.value || 'a';
+      const bVal = elB.value || 'b';
+      const cVal = elC.value || 'c';
+      const nome = `Bhaskara_a${aVal}_b${bVal}_c${cVal}.pdf`;
+      doc.save(nome);
+    });
+
+    // calcular automaticamente ao abrir com os valores default
+    document.addEventListener('DOMContentLoaded', () => btnCalc.click());
+  </script>
+</body>
+</html>

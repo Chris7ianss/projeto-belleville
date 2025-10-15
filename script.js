@@ -1,5 +1,3 @@
-// ===== script.js (VERSÃO CORRIGIDA / COPIAR & COLAR) =====
-
 // --- Referências DOM (globais) ---
 const operacaoSelect = document.getElementById("operacao_mola");
 const desvioInput = document.getElementById("desvio");
@@ -28,8 +26,8 @@ const pPlana = document.getElementById("p_plana");
 const aPlana = document.getElementById("a_plana");
 
 // Inputs de saída/edição manual 
-const espessuraInput = document.getElementById("espessura");         // campo editável/saida t
-const alturaInput = document.getElementById("altura_cone");          // campo editável/saida h
+const espessuraInput = document.getElementById("espessura");         
+const alturaInput = document.getElementById("altura_cone");          
 const botaoEspessura = document.getElementById("alterar_espessura");
 const botaoAltura = document.getElementById("alterar_altura");
 
@@ -131,21 +129,21 @@ function atualizaVisualInputs() {
   if (modoManualEspessura) {
     espessuraInput.removeAttribute("readonly");
     espessuraInput.style.backgroundColor = "#fffbe6";
-    if (botaoEspessura) botaoEspessura.textContent = "Usar valor calculado";
+    if (botaoEspessura) botaoEspessura.textContent = "Voltar";
   } else {
     espessuraInput.setAttribute("readonly", true);
     espessuraInput.style.backgroundColor = "#ffffffff";
-    if (botaoEspessura) botaoEspessura.textContent = "Alterar manualmente";
+    if (botaoEspessura) botaoEspessura.textContent = "Alterar";
   }
 
   if (modoManualAltura) {
     alturaInput.removeAttribute("readonly");
     alturaInput.style.backgroundColor = "#fffbe6";
-    if (botaoAltura) botaoAltura.textContent = "Usar valor calculado";
+    if (botaoAltura) botaoAltura.textContent = "Voltar";
   } else {
     alturaInput.setAttribute("readonly", true);
     alturaInput.style.backgroundColor = "#ffffffff";
-    if (botaoAltura) botaoAltura.textContent = "Alterar manualmente";
+    if (botaoAltura) botaoAltura.textContent = "Alterar";
   }
 }
 atualizaVisualInputs();
@@ -216,7 +214,8 @@ function obterEntradas() {
       break;
   }
 
-  // ---------- CÁLCULO DA ESPESSURA (t) ----------
+  // -------- CÁLCULO DA ESPESSURA (t) -------
+
   if (modoManualEspessura) {
     // usa o valor manual do usuário (verifica NaN)
     t = parseFloat(espessuraInput.value);

@@ -40,7 +40,7 @@
                         
                             <input
                                 type="number"
-                                id="diametro_externo"placeholder="Ex: 2.5"
+                                id="diametro_externo"placeholder="Ex: 24.5"
                                 min="0.0001"
                                 step="any"
                                 required
@@ -209,7 +209,7 @@
                             </p>
 
                              <p>
-                                <label for="espessura">Espessura (t) </label>
+                                <label for="espessura">Espessura (t): </label>
                                     <input
                                      type="number"
                                      name="espessura"
@@ -233,17 +233,12 @@
                             </p>
                            
 
-                            <div class="dimensoes">
-                                <img id="dimensoes_img" src="dimensoes.png" alt="dimensoes da mola">
-                            </div>
-                        </div>
+                            
                         
 
-                        <!-- BLOCO DE TENSÕES-->
-                        <div class="tensoes">
                             <h3>TENSÕES CRÍTICAS</h3>
                             <p>
-                                <label for="tensao_compressao">Tensão &sigma;<sub>c</sub>: </label>
+                                <label for="tensao_compressao">Tensão de Compressão &sigma;<sub>c</sub>: </label>
                                     <input
                                     type="text"
                                     name="tensao_compressao"
@@ -251,7 +246,7 @@
                                     <span id="unidade_tensao_c" class="unidade_label">Mpa</span>
                             </p>
                             <p>
-                                <Label for="tensao_tracao_ti">Tensão &sigma;<sub>ti</sub>: </Label>
+                                <Label for="tensao_tracao_ti">Tensão de Tração &sigma;<sub>ti</sub>: </Label>
                                     <input
                                     type="text"
                                     name="tensao_tracao_ti" id="tensao_tracao_ti">
@@ -259,12 +254,14 @@
                             </p>
 
                             <p>
-                                <label for="tensao_tracao_to">Tensão &sigma;<sub>to</sub>: </label>
+                                <label for="tensao_tracao_to">Tensão de Tração &sigma;<sub>to</sub>: </label>
                                     <input
                                     type="text"
                                     name="tensao_tracao_to"
                                     id="tensao_tracao_to">
                                      <span id="unidade_tensao_to" class="unidade_label">Mpa</span>
+
+                                 <h3>DEFLEXÃO</h3>
 
                             </p>
                                 <label for="deflexao_min">Deflexão Mínima:</label>
@@ -280,14 +277,25 @@
                                 type="number"  
                                 id="deflexao_max">
                                 <span id="unidade_defle_max" >mm</span>
-                            <p>         
+                           
+
+                          
+
+
+
+
+                        </div>
+                        
+
+                        <!-- BLOCO DE TENSÕES-->
+                        <div class="tensoes">
                             
                             <P> <h3> VIABILIDADE DO PROJETO</h3>
 
 
                             </P>
                                 
-                                <label for="coeficiente_seguranca">Coeficiente de Seguraça:</label>
+                                <label id="FS" for="coeficiente_seguranca">Coeficiente de Seguraça:</label>
                                     <input
                                     type="text"
                                     name="coeficiente_seguranca"
@@ -296,10 +304,14 @@
                             <p><div id="status">Projeto Aprovado</div></p>
 
 
-                            </p>
+                             <div class="container-imagens">
                                 <div class="tensoes">
                                     <img  id="tensoes_img" src="tensoes.png" alt="tensoes">
                                 </div>
+                                <div class="dimensoes">
+                                <img id="dimensoes_img" src="dimensoes.png" alt="dimensoes da mola">
+                            </div>
+                            </div>
                         </div>
                       
                     </div>

@@ -5,7 +5,7 @@ body {
 }
 
 main {
-   background-color: #4b0e0e;
+   background-color: #e67b7b;
    padding: 20px;
    border-radius: 5px;
    min-width: 320px;
@@ -67,7 +67,7 @@ h1 {
     border-color: rgb(19, 0, 0);
     border-radius: 8px;
     height: 834px;
-    width: 870px;
+    width: 950px;
     
     
    }
@@ -76,7 +76,7 @@ h1 {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
-    gap: 20px;
+   
     flex-wrap: nowrap;
 }
 
@@ -92,54 +92,11 @@ h1 {
 #dados_projeto h2, #relatorio_final h2 {
   text-align: center;
 }
-
-/*
-
-#forca_plana {
-  width: 80px; 
-  
-}
-#diametro_externo {
-    width: 80px;
-}
-#Rd {
-    width: 80px;
+.dimensoes h3, .tensoes h3 {
+    text-align: center;
+    
 }
 
-#desvio {
-    width: 40px;
-}
-#diametro_externo_out {
-    width: 80px;
-}
-#diametro_interno {
-    width: 80px;
-}
-#altura_cone {
-    width: 80px;
-}
-#espessura {
-    width: 80px;
-}
-#tensao_compressao {
-    width: 80px;
-}
-#tensao_tracao_ti {
-    width: 80px;
-}
-#tensao_tracao_to {
-    width: 80px;
-}
- #deflexao_min {
-     width: 80px;
-  }
-  #deflexao_max {
-     width: 80px;
-     
-  }
-#coeficiente_seguranca {
-    width: 80px; 
-}*/
 
 /*alinhamento dos inputs e selects */
 
@@ -168,18 +125,18 @@ h1 {
 }
 #dimensoes_img {
     border: 2px solid black ;
-    width: 140px;
+    width: 147px;
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
     align-items: center; 
-    margin-left: 60px;
+    margin-left: -303px;
 }
 
 
 #tensoes_img {
     border: 2px solid black;
     width: 132px;
-    margin-left: 63px;
+    margin-left: 196px;
     
     
 }
@@ -204,7 +161,7 @@ h1 {
     padding: 10px;
     text-align: center;
     font-weight: bold;
-    margin-left: 20px;
+    margin-left: 74px;
 }
 
 /* Projeto aprovado */
@@ -223,7 +180,7 @@ h1 {
 .relatorio_conteudo {
     display: flex;
     flex-wrap: wrap;          /* permite quebrar linha */
-    gap: 20px;
+    gap: 50px;
     justify-content: center;  /* centraliza horizontalmente */
     align-items: flex-start;  /* mantém o topo alinhado */
 }
@@ -315,34 +272,34 @@ input-com-unidade {
      
 
     #diametro_externo_out {
-        margin-left: 5px;
+        margin-left: 30px;
     }
     #diametro_interno {
-        margin-left: 14px;
+        margin-left: 39px;
     }
     #altura_cone {
-        margin-left: 32px;
+        margin-left: 58px;
     }
     #espessura {
-        margin-left: 72px;
+        margin-left: 94px;
     }
 
 
 
     #tensao_compressao {
-        margin-left: 49px;
+        margin-left: 2px;
     }
     #tensao_tracao_ti {
-        margin-left: 49px;
+        margin-left: 44px;
     }
     #tensao_tracao_to {
-        margin-left: 45px;
+        margin-left: 40px;
     }
     #deflexao_min {
-        margin-left: 4px;
+        margin-left: 72px;
     }
     #deflexao_max {
-        margin-left: 1px;
+        margin-left: 69px;
     }
     #ht_manual{
         margin-left: 94px;
@@ -370,3 +327,10 @@ input-com-unidade {
    #coeficiente_min {
     margin-left: 8px;
    }
+   #alterar_espessura, #alterar_altura {
+    margin-left:  3px;
+   }
+   #FS{
+    margin-left: 50px;
+   }
+   
