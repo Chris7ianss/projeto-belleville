@@ -152,7 +152,7 @@ h1 {
 
 .container-imagens {
   display: flex;
-  gap: 10px;
+  gap: 0px;
   justify-content: center;
   padding: 20px;
 }
@@ -162,18 +162,18 @@ h1 {
 }
 #dimensoes_img {
     border: 2px solid rgb(255, 255, 255) ;
-    width: 147px;
+    width: 192px;
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
     align-items: center; 
-    margin-left: -327px;
+    margin-left: -405px;
 }
 
 
 #tensoes_img {
     border: 2px solid rgb(255, 255, 255);
-    width: 170px;
-    margin-left: 196px;
+    width: 230px;
+    margin-left: 211px;
     
     
 }
@@ -493,4 +493,24 @@ background-color: #e05a55; /* mesma cor do header */
 }
 #gerar_pdf {
   margin-left: 200x;
+}
+
+#gerar_pdf {
+  background-color: #0077b6;   /* azul técnico bonito */
+  color: white;                /* texto branco */
+  border: none;                /* tira a borda padrão */
+  border-radius: 6px;          /* cantos arredondados */
+  padding: 8px 14px;           /* tamanho compacto */
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;             /* mãozinha ao passar o mouse */
+  transition: all 0.3s ease;   /* animação suave */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Efeito hover */
+#gerar_pdf:hover {
+  background-color: #0096c7;   /* azul mais claro ao passar o mouse */
+  transform: scale(1.05);      /* leve aumento */
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }

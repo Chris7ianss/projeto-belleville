@@ -177,17 +177,27 @@ if (botaoAltura) {
 
 // FUNÇÃO PRINCIPAL 
 function obterEntradas() {
-  // ENTRADAS DO USUÁRIO
-  const Do = Number(document.getElementById("diametro_externo").value) || 0;
-  const razao_Rd = Number(document.getElementById("Rd").value) || 1;
-  const forca_p = Number(document.getElementById("forca_plana").value) || 0;
+   // ENTRADAS DO USUÁRIO
+
+  const Do = parseFloat(document.getElementById("diametro_externo").value);
+  const razao_Rd = parseFloat(document.getElementById("Rd").value);
+  const forca_p = parseFloat(document.getElementById("forca_plana").value);
+  const Fator_seguranca = parseFloat(document.getElementById("coeficiente_min").value);
+
+  // Validação básica (campos obrigatórios)
+  if (isNaN(Do) || Do <= 0 || isNaN(razao_Rd) || razao_Rd <= 1 || isNaN(forca_p) || forca_p <= 0 || isNaN(Fator_seguranca) || Fator_seguranca <= 0 ) {
+    alert("Preencha todos os valores obrigatórios antes de calcular!");
+    return null; // impede o resto da função
+  }
+  
+
   const desvio_forca = Number(document.getElementById("desvio").value) || 0;
   const operacao = document.getElementById("operacao_mola").value;
   const material_escolhido = document.getElementById("material").value;
   const ajuste = document.getElementById("ajuste").value;
   const tipo_montagem = document.getElementById("montagem").value;
   const unidade_atual = document.getElementById("unidade_atual").value;
-  const Fator_seguranca = document.getElementById("coeficiente_min").value;
+  
 
   // VARIÁVEIS INICIAIS
   let h_over_t;
@@ -397,6 +407,7 @@ if (operacao === "outro_valor") {
 // função que popula os campos de saída no HTML
 function Calcular() {
   const entradas = obterEntradas();
+  if (!entradas) return; 
 
   const {
     Do, t, razao_Rd, sigma_c, sigma_ti, sigma_to,
@@ -438,6 +449,10 @@ function Calcular() {
   console.log(resultados);
 }
 
+// PARTE DO PDF
+
+
+
 document.getElementById("gerar_pdf").addEventListener("click", gerarRelatorioPDF);
 
 function gerarRelatorioPDF() {
@@ -456,12 +471,11 @@ function gerarRelatorioPDF() {
   doc.text(`Data de geração: ${new Date().toLocaleDateString("pt-BR")}`, 15, 28);
   doc.text(`Unidades: ${dados.unidade_atual === "US" ? "Imperial (in, lbf, psi)" : "SI (mm, N, MPa)"}`, 15, 34);
 
-  let yAtual = 44;
+  let yAtual = 40;
 
   // === TABELA: Dados de Entrada ===
   doc.setFont("helvetica", "bold");
-  doc.text("1. Dados de Entrada", 15, yAtual);
-  yAtual += 4;
+  yAtual += 1;
 
   doc.autoTable({
     startY: yAtual,
@@ -472,42 +486,41 @@ function gerarRelatorioPDF() {
       ["Força aplicada", `${dados.forca_p.toFixed(2)} ${dados.unidade_atual === "US" ? "lbf" : "N"}`],
       ["Tipo de operação", dados.operacao.replace(/_/g, " ")],
       ["Tipo de montagem", dados.tipo_montagem === "posicao_plana" ? "Plana" : "Apoiada"],
-      ["Material", dados.material_escolhido.replace(/_/g, " ")],
-      ["Ajuste de propriedades", dados.ajuste === "sim" ? "Sim" : "Não"],
+      ["Ajuste de propriedades", dados.ajuste === "sim" ? "Sim" : "Não"]
     ],
     theme: "grid",
-    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0]},
-    headStyles: { fillColor: [200, 200, 200] }
+    styles: { fontSize: 10, cellPadding: 1, textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.3 },
+    headStyles: { fillColor: [200, 200, 200] },
+    columnStyles: { 0: { cellWidth: 90 }, 1: { cellWidth: 60 } } // colunas padronizadas
   });
 
   yAtual = doc.lastAutoTable.finalY + 10;
 
   // === TABELA: Propriedades do Material ===
-
   doc.setFont("helvetica", "bold");
-  doc.text("2. Propriedades do Material", 15, yAtual);
-  yAtual += 4;
+  yAtual += 1;
 
   doc.autoTable({
     startY: yAtual,
     head: [["Propriedade", "Valor"]],
     body: [
+      ["Material", dados.material_escolhido.replace(/_/g, " ")],
       ["Módulo de Elasticidade (E)", `${dados.E.toFixed(0)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
       ["Limite de resistência (Sut)", `${dados.Sut.toFixed(0)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
       ["Coeficiente de Poisson", dados.poisson],
-      ["Percentual de Sut utilizado", `${dados.percentual_Sut.toFixed(2)}`]
+      ["Porcentual máximo do limite de resistência à tração", `${dados.percentual_Sut.toFixed(2)}`],
     ],
     theme: "grid",
-    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
-    headStyles: { fillColor: [200, 200, 200] }
+    styles: { fontSize: 10, cellPadding: 1, textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.3 },
+    headStyles: { fillColor: [200, 200, 200] },
+    columnStyles: { 0: { cellWidth: 90 }, 1: { cellWidth: 60 } }
   });
 
   yAtual = doc.lastAutoTable.finalY + 10;
 
   // === TABELA: Dimensões da Mola ===
   doc.setFont("helvetica", "bold");
-  doc.text("3. Dimensões Calculadas", 15, yAtual);
-  yAtual += 4;
+  yAtual += 1;
 
   doc.autoTable({
     startY: yAtual,
@@ -516,45 +529,43 @@ function gerarRelatorioPDF() {
       ["Espessura (t)", `${dados.t.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
       ["Altura (h)", `${dados.h.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
       ["Razão h/t", dados.h_over_t.toFixed(3)],
-      ["Deflexão mínima (ymin)", `${dados.yminimo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
-      ["Deflexão máxima (ymax)", `${dados.ymaximo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Deflexão mínima", `${dados.yminimo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Deflexão máxima", `${dados.ymaximo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
     ],
     theme: "grid",
-    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0]},
-    headStyles: { fillColor: [200, 200, 200] }
+    styles: { fontSize: 10, cellPadding: 1, textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.3 },
+    headStyles: { fillColor: [200, 200, 200] },
+    columnStyles: { 0: { cellWidth: 90 }, 1: { cellWidth: 60 } }
   });
 
   yAtual = doc.lastAutoTable.finalY + 10;
 
   // === TABELA: Tensões ===
   doc.setFont("helvetica", "bold");
-  doc.text("4. Tensões Calculadas", 15, yAtual);
-  yAtual += 4;
+  yAtual += 1;
 
   doc.autoTable({
     startY: yAtual,
     head: [["Tipo de Tensão", "Valor"]],
     body: [
-      ["Compressão (σc)", `${dados.sigma_c.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
-      ["Tração interna (σti)", `${dados.sigma_ti.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
-      ["Tração externa (σto)", `${dados.sigma_to.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
-      ["Maior tensão", `${dados.maior_tensao.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`]
+      ["Tensão de compressão (Sigma_c)", `${dados.sigma_c.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Tração interna (Sigma_ti)", `${dados.sigma_ti.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Tração externa (Sigma_to)", `${dados.sigma_to.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`]
     ],
     theme: "grid",
-    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
-    headStyles: { fillColor: [200, 200, 200] }
+    styles: { fontSize: 10, cellPadding: 1, textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.3 },
+    headStyles: { fillColor: [200, 200, 200] },
+    columnStyles: { 0: { cellWidth: 90 }, 1: { cellWidth: 60 } }
   });
 
   yAtual = doc.lastAutoTable.finalY + 10;
 
   // === TABELA: Verificação de Segurança ===
   doc.setFont("helvetica", "bold");
-  doc.text("5. Verificação de Segurança", 15, yAtual);
-  yAtual += 4;
+  yAtual += 1;
 
   const statusAprovado = dados.coeficiente_seguranca >= dados.Fator_seguranca;
-  const corStatus = statusAprovado ? [0, 150, 0] : [200, 0, 0];
-  const textoStatus = statusAprovado ? "Projeto Aprovado" : " Projeto Reprovado";
+  const textoStatus = statusAprovado ? "Projeto Aprovado" : "Projeto Reprovado";
 
   doc.autoTable({
     startY: yAtual,
@@ -565,9 +576,9 @@ function gerarRelatorioPDF() {
       ["Status", textoStatus]
     ],
     theme: "grid",
-    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
+    styles: { fontSize: 10, cellPadding: 1, textColor: [0, 0, 0], lineColor: [0, 0, 0], lineWidth: 0.3 },
     headStyles: { fillColor: [200, 200, 200] },
-    bodyStyles: { textColor: corStatus }
+    columnStyles: { 0: { cellWidth: 90 }, 1: { cellWidth: 60 } }
   });
 
   yAtual = doc.lastAutoTable.finalY + 15;
