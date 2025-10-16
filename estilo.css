@@ -91,9 +91,9 @@ h1 {
     border-style: solid;
     border-color: rgb(255, 255, 255);
     border-radius: 8px;
-    min-height: 776px;
+    min-height: 785px;
     max-height: 1500px;
-    width: 950px;
+    width: 910px;
 }
 #dados_projeto,
 #relatorio_final {
@@ -166,13 +166,13 @@ h1 {
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
     align-items: center; 
-    margin-left: -303px;
+    margin-left: -327px;
 }
 
 
 #tensoes_img {
     border: 2px solid rgb(255, 255, 255);
-    width: 132px;
+    width: 170px;
     margin-left: 196px;
     
     
@@ -490,4 +490,7 @@ background-color: #e05a55; /* mesma cor do header */
     font-weight: bold;
     margin-top: 30px; /* espaçamento do conteúdo acima */
     
+}
+#gerar_pdf {
+  margin-left: 200x;
 }

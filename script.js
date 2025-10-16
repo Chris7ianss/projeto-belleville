@@ -4,7 +4,7 @@ const desvioInput = document.getElementById("desvio");
 const desvioLabel = document.getElementById("desvio_label");
 const desvioSpan = document.getElementById("porcentagem");
 
-// --- NOVO: inputs para "Outro valor" ---
+// nputs para "Outro valor" ---
 let hSobreTInput = document.getElementById("ht_manual");  // input que o usuário digita h/t
 let preloadInput = document.getElementById("preload");    // input do preload
 hSobreTInput.style.display = "none";  // começam escondidos
@@ -108,8 +108,7 @@ function atualizarLabelsUnidade() {
 }
 unidadeSelect.addEventListener("change", () => {
   atualizarLabelsUnidade();
-  // opcional: recalcular pra já ver as mudanças
-  Calcular();
+  
 });
 atualizarLabelsUnidade();
 
@@ -439,6 +438,149 @@ function Calcular() {
   console.log(resultados);
 }
 
+document.getElementById("gerar_pdf").addEventListener("click", gerarRelatorioPDF);
+
+function gerarRelatorioPDF() {
+  // Atualiza os dados mais recentes
+  const dados = obterEntradas();
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF();
+
+  // === CABEÇALHO ===
+  doc.setFont("helvetica", "bold");
+  doc.setFontSize(16);
+  doc.text("Relatório Técnico – Dimensionamento de Mola Belleville", 15, 20);
+  doc.setFontSize(10);
+  doc.setFont("helvetica", "normal");
+  doc.text(`Data de geração: ${new Date().toLocaleDateString("pt-BR")}`, 15, 28);
+  doc.text(`Unidades: ${dados.unidade_atual === "US" ? "Imperial (in, lbf, psi)" : "SI (mm, N, MPa)"}`, 15, 34);
+
+  let yAtual = 44;
+
+  // === TABELA: Dados de Entrada ===
+  doc.setFont("helvetica", "bold");
+  doc.text("1. Dados de Entrada", 15, yAtual);
+  yAtual += 4;
+
+  doc.autoTable({
+    startY: yAtual,
+    head: [["Parâmetro", "Valor"]],
+    body: [
+      ["Diâmetro Externo (Do)", `${dados.Do.toFixed(2)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Razão (Rd)", dados.razao_Rd.toFixed(3)],
+      ["Força aplicada", `${dados.forca_p.toFixed(2)} ${dados.unidade_atual === "US" ? "lbf" : "N"}`],
+      ["Tipo de operação", dados.operacao.replace(/_/g, " ")],
+      ["Tipo de montagem", dados.tipo_montagem === "posicao_plana" ? "Plana" : "Apoiada"],
+      ["Material", dados.material_escolhido.replace(/_/g, " ")],
+      ["Ajuste de propriedades", dados.ajuste === "sim" ? "Sim" : "Não"],
+    ],
+    theme: "grid",
+    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0]},
+    headStyles: { fillColor: [200, 200, 200] }
+  });
+
+  yAtual = doc.lastAutoTable.finalY + 10;
+
+  // === TABELA: Propriedades do Material ===
+
+  doc.setFont("helvetica", "bold");
+  doc.text("2. Propriedades do Material", 15, yAtual);
+  yAtual += 4;
+
+  doc.autoTable({
+    startY: yAtual,
+    head: [["Propriedade", "Valor"]],
+    body: [
+      ["Módulo de Elasticidade (E)", `${dados.E.toFixed(0)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Limite de resistência (Sut)", `${dados.Sut.toFixed(0)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Coeficiente de Poisson", dados.poisson],
+      ["Percentual de Sut utilizado", `${dados.percentual_Sut.toFixed(2)}`]
+    ],
+    theme: "grid",
+    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
+    headStyles: { fillColor: [200, 200, 200] }
+  });
+
+  yAtual = doc.lastAutoTable.finalY + 10;
+
+  // === TABELA: Dimensões da Mola ===
+  doc.setFont("helvetica", "bold");
+  doc.text("3. Dimensões Calculadas", 15, yAtual);
+  yAtual += 4;
+
+  doc.autoTable({
+    startY: yAtual,
+    head: [["Dimensão", "Valor"]],
+    body: [
+      ["Espessura (t)", `${dados.t.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Altura (h)", `${dados.h.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Razão h/t", dados.h_over_t.toFixed(3)],
+      ["Deflexão mínima (ymin)", `${dados.yminimo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+      ["Deflexão máxima (ymax)", `${dados.ymaximo.toFixed(3)} ${dados.unidade_atual === "US" ? "in" : "mm"}`],
+    ],
+    theme: "grid",
+    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0]},
+    headStyles: { fillColor: [200, 200, 200] }
+  });
+
+  yAtual = doc.lastAutoTable.finalY + 10;
+
+  // === TABELA: Tensões ===
+  doc.setFont("helvetica", "bold");
+  doc.text("4. Tensões Calculadas", 15, yAtual);
+  yAtual += 4;
+
+  doc.autoTable({
+    startY: yAtual,
+    head: [["Tipo de Tensão", "Valor"]],
+    body: [
+      ["Compressão (σc)", `${dados.sigma_c.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Tração interna (σti)", `${dados.sigma_ti.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Tração externa (σto)", `${dados.sigma_to.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`],
+      ["Maior tensão", `${dados.maior_tensao.toFixed(2)} ${dados.unidade_atual === "US" ? "psi" : "MPa"}`]
+    ],
+    theme: "grid",
+    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
+    headStyles: { fillColor: [200, 200, 200] }
+  });
+
+  yAtual = doc.lastAutoTable.finalY + 10;
+
+  // === TABELA: Verificação de Segurança ===
+  doc.setFont("helvetica", "bold");
+  doc.text("5. Verificação de Segurança", 15, yAtual);
+  yAtual += 4;
+
+  const statusAprovado = dados.coeficiente_seguranca >= dados.Fator_seguranca;
+  const corStatus = statusAprovado ? [0, 150, 0] : [200, 0, 0];
+  const textoStatus = statusAprovado ? "Projeto Aprovado" : " Projeto Reprovado";
+
+  doc.autoTable({
+    startY: yAtual,
+    head: [["Parâmetro", "Valor"]],
+    body: [
+      ["Coeficiente mínimo exigido", dados.Fator_seguranca],
+      ["Coeficiente calculado", dados.coeficiente_seguranca.toFixed(2)],
+      ["Status", textoStatus]
+    ],
+    theme: "grid",
+    styles: { fontSize: 10, cellPadding: 3, textColor: [0, 0, 0] },
+    headStyles: { fillColor: [200, 200, 200] },
+    bodyStyles: { textColor: corStatus }
+  });
+
+  yAtual = doc.lastAutoTable.finalY + 15;
+
+  // === Rodapé ===
+  doc.setFont("helvetica", "italic");
+  doc.setFontSize(8);
+  doc.setTextColor(100, 100, 100);
+  doc.text("Relatório gerado automaticamente pelo sistema de cálculo de molas Belleville.", 15, 285);
+
+  // === Salvar o arquivo ===
+  doc.save("Relatorio_Mola_Belleville.pdf");
+}
 
 
 
