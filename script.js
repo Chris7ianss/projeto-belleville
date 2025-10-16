@@ -185,7 +185,7 @@ function obterEntradas() {
   const Fator_seguranca = parseFloat(document.getElementById("coeficiente_min").value);
 
   // Validação básica (campos obrigatórios)
-  if (isNaN(Do) || Do <= 0 || isNaN(razao_Rd) || razao_Rd <= 1 || isNaN(forca_p) || forca_p <= 0 || isNaN(Fator_seguranca) || Fator_seguranca <= 0 ) {
+  if (isNaN(Do) || Do == 0 || isNaN(razao_Rd) || razao_Rd <= 1 || isNaN(forca_p)  || isNaN(Fator_seguranca) || Fator_seguranca < 1 ) {
     alert("Preencha todos os valores obrigatórios antes de calcular!");
     return null; // impede o resto da função
   }
