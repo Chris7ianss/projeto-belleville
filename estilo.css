@@ -166,14 +166,16 @@ h1 {
     display: flex;              /* ativa o modo flex */
     justify-content: center;    /* centraliza horizontalmente */
     align-items: center; 
-    margin-left: -405px;
+    margin: auto;
+    margin-top: 30px;
 }
 
 
 #tensoes_img {
     border: 2px solid rgb(255, 255, 255);
     width: 230px;
-    margin-left: 211px;
+    margin-left: 85px;
+   
     
     
 }
