@@ -11,6 +11,7 @@ hSobreTInput.style.display = "none";  // começam escondidos
 preloadInput.style.display = "none";
 
 
+
 const unidadeSelect = document.getElementById("unidade_atual");
 const unidadeLabel_forca = document.getElementById("unidade_forca");
 const unidadeLabel_Do = document.getElementById("unidade_Do");
@@ -23,6 +24,8 @@ const unidadeLabel_ti = document.getElementById("unidade_tensao_ti");
 const unidadeLabel_to = document.getElementById("unidade_tensao_to");
 const unidadeLabel_defle = document.getElementById("unidade_deflexao");
 const unidadeLabel_deflemin =document.getElementById("unidade_deflemin");
+
+
 
 const selectMontagem = document.getElementById("montagem");
 const pPlana = document.getElementById("p_plana");
@@ -177,6 +180,7 @@ if (botaoAltura) {
 
 // FUNÇÃO PRINCIPAL 
 function obterEntradas() {
+
    // ENTRADAS DO USUÁRIO
 
   const Do = parseFloat(document.getElementById("diametro_externo").value);
@@ -230,6 +234,8 @@ function obterEntradas() {
       h_over_t = parseFloat(hSobreTInput.value) || 1; // pega o valor digitado
       break;
   }
+    
+
 
   // -------- CÁLCULO DA ESPESSURA (t) -------
 
@@ -260,7 +266,7 @@ function obterEntradas() {
     if (!isNaN(h)) alturaInput.value = Number(h).toFixed(2);
   }
 
-  // --- NOVO: se for "Outro valor", usar preload para ymax ---
+  // se for "Outro valor", usar preload para ymax ---
 if (operacao === "outro_valor") {
     const preload = parseFloat(preloadInput.value) || 1;
     ymaximo = h * preload;
@@ -269,7 +275,7 @@ if (operacao === "outro_valor") {
 
 
 
-  // ---------- ESCOLHER YMIN E YMAX ----------
+  // ---------- ESCOLHER YMIN E YMAX -----
   if (operacao === "operacao_bimodal") {
     if (tipo_montagem === "posicao_plana") {
       yminimo = 0;
@@ -343,8 +349,8 @@ if (operacao === "outro_valor") {
 
   // CONVERSÃO SI -> US (se necessário)
   if (unidade_atual === "US") {
-    E = E * 145.038;
-    Sut = Sut * 145.038;
+    E = E * 144.70589;
+    Sut = Sut * 144.70589;
   }
 
   // CONSTANTES K1..K5
@@ -414,8 +420,10 @@ function Calcular() {
     poisson, Sut, E, material_escolhido, coeficiente_seguranca, h, ymaximo, yminimo
   } = entradas;
 
+ // CALCULO DO DIAMETRO INTERNO
   const Di = Do / (razao_Rd || 1);
-
+  
+  
 
 
   const resultados = {

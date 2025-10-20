@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta
+      http-equiv="X-Content-Security-Policy"
+      content="default-src 'self'; script-src 'self'"
+    />
     <title>Calculadora de Mola Belleville</title>
      <link rel="icon" type="image/x-icon" href="favicon.ico">
     <link rel="stylesheet" href="estilo.css">
@@ -46,7 +50,7 @@
                         
                             <input
                                 type="number"
-                                id="diametro_externo"placeholder="Ex: 24.5"
+                                id="diametro_externo"placeholder="Ex: 25.4"
                                 min="0.01"
                                 step="any"
                                 required
@@ -80,7 +84,7 @@
                          <select name="operacao_mola" id="operacao_mola">
                             <option value="operacao_bimodal"> Bimodal <em>(h/t = 2,828)</em></option>
                             <option value="forca_constante">Força Constante <em>(h/t = 1,414)</em></option>
-                            <option value="constante_mola_constante">Comportamento Linear <em>h/t = 0,400</em></option>
+                            <option value="constante_mola_constante">Comportamento Linear <em>(h/t = 0,400)</em></option>
                             <option value="outro_valor">Outro Valor</option>
                          </select>
 
@@ -143,8 +147,9 @@
                     
                          <label for="ajuste" id="ajuste1">Ajuste:</label>
                                      <select name="ajuste" id="ajuste">
+                            <option value="nao">Não</option>            
                             <option value="sim">Sim</option>
-                            <option value="nao">Não</option>
+                            
                          </select>
                      </div>
 
@@ -301,7 +306,7 @@
 
                             </P>
                                 
-                                <label id="FS" for="coeficiente_seguranca">Coeficiente de Seguraça:</label>
+                                <label id="FS" for="coeficiente_seguranca">Coeficiente de Segurança:</label>
                                     <input
                                     type="text"
                                     name="coeficiente_seguranca"
@@ -309,7 +314,7 @@
                             
                             <p><div id="status">Projeto Aprovado</div></p>
 
-                            <button id="gerar_pdf" style="margin-left: 120px;"> Gerar Relatório (PDF)</button>
+                            <button type="button" id="gerar_pdf" style="margin-left: 120px;"> Gerar Relatório (PDF)</button>
 
                                   <div class="dimensoes">
                                 <img id="dimensoes_img" src="dimensoes01.png" alt="dimensoes da mola">
@@ -328,10 +333,17 @@
             </div>
         </div>
     </main>
-    <footer class="footer">  <p>Christian Silva Santos | Universidade Federal do Recôncavo da Bahia | Curso: Engenharia Mecânica</p></footer>
+    <footer class="footer">  <p>
+        <P>Christian Silva Santos </P>
+        <P>João Vitor Barreto Bastos</P>
+        <P>Daniel de Souza Machado</P>
+        <P>Manoela de Souza da Paixão</P>
+        Universidade Federal do Recôncavo da Bahia - Engenharia Mecânica</p></footer>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.29/jspdf.plugin.autotable.min.js"></script>
 
     <script src="script.js"></script>
+   
 </body>
 </html>
